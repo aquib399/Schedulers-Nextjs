@@ -4,7 +4,7 @@ const cors = require("cors");
 const express = require("express");
 const userDB = require("./database/model/user");
 const app = express();
-
+const PORT = process.env.PORT;
 let data = {};
 let interval = false;
 const resendTime = 1000 * 60; //second to delay;
@@ -192,7 +192,7 @@ app.post("/completeSchedule", async (req, res) => {
 
 app.get("/", (req, res) => res.status(200).json({ msg: "Everthing looks fine", origin: process.env.ORIGIN.split(",") }));
 
-app.listen(process.env.PORT, console.log(`Listening at http://localhost:${process.env.PORT}`));
+app.listen(PORT, console.log(`Listening at http://localhost:${PORT}`));
 
 async function getScheduleRoute(req) {
   const { username, password } = req.body;

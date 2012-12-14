@@ -12,16 +12,20 @@ const userSchema = new mongoose.Schema(
     },
     fName: {
       type: String,
-      required: true,
+      required: false,
     },
     lName: {
       type: String,
-      required: true,
+      required: false,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+    },
+    profile: {
+      type: Blob,
+      required: false,
     },
     schedule: [
       {

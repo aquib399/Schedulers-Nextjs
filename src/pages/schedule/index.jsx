@@ -1,6 +1,7 @@
 import Head from "next/head";
 import ScheduleLayout from "@/components/ScheduleLayout";
 import { getCookie, server } from "../../../middleware/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Schedule() {
   return (
@@ -94,6 +95,16 @@ async function submit() {
       alert("Validation or server error");
     });
     alert("schedule Added successfully");
+    toast.success("schedule Added successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   } catch (err) {
     console.error(err);
     alert("something went wrong from client");

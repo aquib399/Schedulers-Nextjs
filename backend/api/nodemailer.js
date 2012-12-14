@@ -1,15 +1,12 @@
 const nodemailer = require("nodemailer");
-
+const user = process.env.USER;
+const pass = process.env.PASS;
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: { user, pass },
+});
 exports.sendMail = function sendMail(to, fName, schedule) {
   console.log(to, fName);
-  const transport = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.USER,
-      pass: process.env.PASSWORD,
-    },
-  });
-
   const otp = Math.floor(Math.random() * 899999 + 100000);
 
   const option = {
