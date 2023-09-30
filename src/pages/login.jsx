@@ -1,25 +1,28 @@
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { verifyCookie, setCookie } from "../../middleware/auth";
 import { Bitter } from "next/font/google";
 
 const bitter = Bitter({ subsets: ["latin"], weight: [], display: "auto" });
 
 import Head from "next/head";
+import { useEffect } from "react";
 export default function Login() {
   const router = useRouter();
-  verifyCookie().then((found) => {
-    if (found) router.replace("/");
-  });
+  useEffect(() => {
+    verifyCookie().then((found) => {
+      if (found) router.replace("/");
+    });
+  }, [router.route]);
   return (
     <>
       <Head>
         <title>LOGIN | SCHEDULERS</title>
         <meta name="description" content="Login to SCHEDULERS app to open the world of schedule" />
       </Head>
-      <div className="flex h-screen w-screen fixed bg-white">
+      <div className="flex h-screen w-screen justify-center fixed bg-white">
         <div
           className={
-            "flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[50%] font-bold text-7xl " +
+            "flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[50%] font-bold text-7xl max-lg:hidden " +
             bitter.className
           }
         >
@@ -33,11 +36,8 @@ export default function Login() {
           </div>
         </div>
         <div className="min-w-[50%] flex flex-col gap-10 justify-center items-center">
-
           <span
-            className={
-              "font-bold text-4xl w-80 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent " + bitter.className
-            }
+            className={`font-bold text-4xl w-80 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent ${bitter.className}`}
           >
             WELCOME BACK.
           </span>
@@ -93,24 +93,4 @@ export default function Login() {
       </div>
     </>
   );
-}
-
-{
-  /* <form
-  className="flex flex-col items-center"
-  onSubmit={(e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    setCookie(username, password);
-    verifyCookie().then((found) => {
-      if (found) router.replace("/");
-    });
-  }}
->
-  <input placeholder="Username..." type="text" id="username" className="border-2 border-black p-1 px-3 w-48" />
-  <input placeholder="Password..." type="text" id="password" className="border-2 border-black p-1 px-3 w-48" />
-  <button type="submit" className="border-2 border-black p-1 px-3 w-32 rounded hover:bg-black hover:text-white 
-  </butt[101 active:[rgb(70,70,70)]]
-</form>; */
 }

@@ -3,8 +3,8 @@ export const server = "https://backend-1-e4683154.deta.app"; //production
 // export const server = "http://localhost:8080"; // developement
 
 export function setCookie(username, password) {
-  cookie.set("username", username,{ expires: 30 });
-  cookie.set("password", password,{ expires: 30 });
+  cookie.set("username", username, { expires: 30 });
+  cookie.set("password", password, { expires: 30 });
 }
 export function getCookie() {
   const username = cookie.get("username");
@@ -29,6 +29,7 @@ export async function verifyCookie() {
     if (res.status == 200) return { username, password };
     throw "Cookie not valid";
   } catch (err) {
+    // clearCookie();
     console.error(err);
     return false;
   }

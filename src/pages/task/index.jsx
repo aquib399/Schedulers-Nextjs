@@ -42,6 +42,7 @@ export default function Task() {
               type={"datetime-local"}
               id="time"
               className="rounded-lg border-b border-zinc-800 m-2 p-1 text-center outline-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
+              required
             />
           </div>
           <div className="mx-2">
@@ -50,20 +51,18 @@ export default function Task() {
               id="option"
               className="rounded-lg border-b border-zinc-800 m-2 p-2 w-40  outline-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
               defaultValue="default"
+              required
             >
-              <option value="default" disabled hidden>
-                Please select...
-              </option>
-              <option value="daily">Daily</option>
-              <option value="daily">Personal</option>
-              <option value="school">School</option>
-              <option value="office">Office</option>
-              <option value="daily">Project</option>
-              <option value="office">Shopping</option>
-              <option value="office">Preparation</option>
-              <option value="office">Leisure</option>
-              <option value="occasion">Occasion</option>
-              <option value="other">Others...</option>
+              <option value="Daily">Daily</option>
+              <option value="Personal">Personal</option>
+              <option value="School">School</option>
+              <option value="Office">Office</option>
+              <option value="Project">Project</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Preparation">Preparation</option>
+              <option value="Leisure">Leisure</option>
+              <option value="Occasion">Occasion</option>
+              <option value="Other">Others...</option>
             </select>
           </div>
 
@@ -81,6 +80,7 @@ export default function Task() {
 async function submit() {
   const [title, description, time, type] = ["title", "description", "time", "option"].map((e) => document.getElementById(e).value);
   const task = { title, description, time, type };
+  console.log(task);
   const { username, password } = getCookie();
   try {
     const res = await fetch(server + "/addTask", {

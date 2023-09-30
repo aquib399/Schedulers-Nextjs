@@ -9,6 +9,7 @@ db.on("error", (err) => console.log(err));
 
 exports.addUser = async function addUser(userData) {
   let { username, password, fName, lName, email } = userData;
+  console.log("Add user->", userData);
   try {
     if (!(password.length >= 8 && username.length >= 3, fName.length && lName.length && email.length >= 6 && password.length >= 8))
       throw { status: 406 };
@@ -19,7 +20,7 @@ exports.addUser = async function addUser(userData) {
     console.log(err.status || 403);
     // fasle : success
     // 406 - short password
-    // 403 - forbidden
+    // 403 - wrong inputs
     return err.status || 403;
   }
 };
