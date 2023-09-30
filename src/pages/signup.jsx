@@ -55,9 +55,9 @@ export default function Signup() {
         <title>SIGNUP | SCHEDULERS</title>
         <meta name="description" content="Signup to SCHEDULERS app to open the world of tasks" />
       </Head>
-      <div className="flex h-screen w-screen fixed">
+      <div className="flex justify-center align-center h-screen w-screen fixed bg-white">
         <div
-          className={`flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[50%] font-bold text-7xl max-lg:hidden ${bitter.className}`}
+          className={`flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[55%] font-bold text-7xl max-lg:hidden ${bitter.className}`}
         >
           <div className="flex flex-col">
             <span className="text-blue-300">NEW MEMBER?</span>
@@ -68,9 +68,9 @@ export default function Signup() {
             </span>
           </div>
         </div>
-        <div className="min-w-[50%] flex flex-col gap-10 justify-center items-center">
+        <div className="min-w-[45%] flex flex-col gap-10 justify-center items-center">
           <span
-            className={"font-bold text-3xl bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent " + bitter.className}
+            className={`font-bold text-3xl bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent ${bitter.className}`}
           >
             REGISTER YOURSELF.
           </span>

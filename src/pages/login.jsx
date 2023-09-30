@@ -22,7 +22,7 @@ export default function Login() {
       <div className="flex h-screen w-screen justify-center fixed bg-white">
         <div
           className={
-            "flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[50%] font-bold text-7xl max-lg:hidden " +
+            "flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[55%] font-bold text-7xl max-lg:hidden " +
             bitter.className
           }
         >
@@ -35,7 +35,7 @@ export default function Login() {
             <span className="text-amber-500">JOIN NOW.</span>
           </div>
         </div>
-        <div className="min-w-[50%] flex flex-col gap-10 justify-center items-center">
+        <div className="min-w-[45%] flex flex-col gap-10 justify-center items-center">
           <span
             className={`font-bold text-4xl w-80 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent ${bitter.className}`}
           >
