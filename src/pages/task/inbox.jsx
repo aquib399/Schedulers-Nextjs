@@ -9,7 +9,7 @@ export default function Inbox() {
         <title>Inbox | SCHEDULERS</title>
         <meta
           name="description"
-          content="Streamline communication and collaboration with our SCHEDULERS app's message inbox feature. Easily exchange task-related messages, updates, and feedback with your team or collaborators. Simplify task coordination and enhance productivity with our integrated messaging solution."
+          content="Streamline communication and collaboration with our SCHEDULERS app's message inbox feature. Easily exchange task-related messages, updates, and feedback with your team or collaborators. Simplify schedule coordination and enhance productivity with our integrated messaging solution."
         />
       </Head>
       <TaskLayout />

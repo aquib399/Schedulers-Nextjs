@@ -6,10 +6,10 @@ export default function Today() {
   return (
     <>
       <Head>
-        <title>Today Task | SCHEDULERS</title>
+        <title>Today Schedule | SCHEDULERS</title>
         <meta
           name="description"
-          content="Enhance your daily productivity with our SCHEDULERS app's daily task management feature. Efficiently plan, organize, and complete your daily to-dos. Simplify your routine and stay on top of your goals using our user-friendly task management tool."
+          content="Enhance your daily productivity with our SCHEDULERS app's daily schedule management feature. Efficiently plan, organize, and complete your daily to-dos. Simplify your routine and stay on top of your goals using our user-friendly schedule management tool."
         />
       </Head>
       <TaskLayout />

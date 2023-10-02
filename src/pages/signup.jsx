@@ -2,7 +2,7 @@ import OtpPopUp from "@/components/otpPopUp";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useState } from "react";
-import { clearCookie, server } from "../../middleware/auth";
+import { server } from "../../middleware/auth";
 import { Bitter } from "next/font/google";
 const bitter = Bitter({ subsets: ["latin"], weight: [], display: "auto" });
 export default function Signup() {
@@ -15,9 +15,9 @@ export default function Signup() {
   function onSubmit() {
     setPopUp(false);
   }
-  const inputStyle = "w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all";
-  const btnStyle =
-    "py-2 w-80 font-bold tracking-[4px] border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all";
+  const inputStyle = `w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all`;
+  const btnStyle = `py-2 w-80 font-bold tracking-[4px] border border-black 
+  hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
   async function submit(e) {
     e.preventDefault();
     const username = document.getElementById("username").value;
@@ -37,7 +37,6 @@ export default function Signup() {
       alert("Server error");
     });
     console.log(res?.status);
-    const data = await res?.json();
     if (res?.status == 200) {
       setPopUp(email);
       console.log(popUp);
@@ -45,6 +44,7 @@ export default function Signup() {
       alert("Username or Email already in use");
     } else if (res?.status == 500) alert("Error while sending email");
     else if (res?.status == 409) {
+      const data = await res?.json();
       alert(`Please wait ${data.time} seconds before sending another OTP`);
     }
   }
@@ -75,7 +75,6 @@ export default function Signup() {
             REGISTER YOURSELF.
           </span>
           <form className="flex flex-col gap-3" onSubmit={submit}>
-            {/*  */}
             <input placeholder="Username..." type="text" id="username" className={inputStyle} />
             <input placeholder="First Name..." type="text" id="fName" className={inputStyle} />
             <input placeholder="Last Name..." type="text" id="lName" className={inputStyle} />
@@ -89,17 +88,6 @@ export default function Signup() {
             </span>
             <button type="submit" className={btnStyle}>
               SIGNUP
-            </button>
-          </form>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const res = confirm("Are you sure");
-              if (res) clearCookie();
-            }}
-          >
-            <button type="submit" className={btnStyle}>
-              REMOVE COOKIE
             </button>
           </form>
         </div>

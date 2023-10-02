@@ -7,7 +7,7 @@ export default function Info() {
         <title>Info | TODO</title>
         <meta
           name="description"
-          content="Learn more about our SCHEDULERS app and the team behind it with our informative about page. Discover our mission, vision, and commitment to helping you achieve productivity and organization. Get to know us and our dedication to simplifying your task management experience."
+          content="Learn more about our SCHEDULERS app and the team behind it with our informative about page. Discover our mission, vision, and commitment to helping you achieve productivity and organization. Get to know us and our dedication to simplifying your schedule management experience."
         />
       </Head>
       <h1 className="text-3xl my-3 font-bold">Info</h1>

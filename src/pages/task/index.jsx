@@ -6,15 +6,15 @@ export default function Task() {
   return (
     <>
       <Head>
-        <title>Tasks | SCHEDULERS</title>
+        <title>Schedules | SCHEDULERS</title>
         <meta
           name="description"
-          content="Optimize your task organization with our powerful SCHEDULERS app feature. Effortlessly categorize, prioritize, and arrange your tasks for maximum efficiency. Take control of your daily schedule and boost productivity like never before."
+          content="Optimize your schedule organization with our powerful SCHEDULERS app feature. Effortlessly categorize, prioritize, and arrange your tasks for maximum efficiency. Take control of your daily schedule and boost productivity like never before."
         />
       </Head>
       <TaskLayout />
       <div className="center-full">
-        <h1 className="text-4xl font-bold">Add a task</h1>
+        <h1 className="text-4xl font-bold">Add a Schedule</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -93,7 +93,7 @@ async function submit() {
       console.log(err);
       alert("Validation or server error");
     });
-    alert("Task Added successfully");
+    alert("schedule Added successfully");
   } catch (err) {
     console.error(err);
     alert("something went wrong from client");

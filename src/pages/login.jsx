@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
 import { verifyCookie, setCookie } from "../../middleware/auth";
 import { Bitter } from "next/font/google";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Head from "next/head";
 
 const bitter = Bitter({ subsets: ["latin"], weight: [], display: "auto" });
 
-import Head from "next/head";
-import { useEffect } from "react";
 export default function Login() {
   const router = useRouter();
   useEffect(() => {

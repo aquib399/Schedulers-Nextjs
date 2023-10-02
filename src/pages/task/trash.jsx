@@ -5,10 +5,10 @@ export default function Trash() {
   return (
     <>
       <Head>
-        <title>Deleted Task | SCHEDULERS</title>
+        <title>Deleted Schedule | SCHEDULERS</title>
         <meta
           name="description"
-          content="Recover or permanently delete tasks with ease using our SCHEDULERS app's trash bin feature. Keep your task list tidy and manage discarded items effortlessly. Regain control of your task management with our intuitive trash bin functionality."
+          content="Recover or permanently delete schedule with ease using our SCHEDULERS app's trash bin feature. Keep your Schedule list tidy and manage discarded items effortlessly. Regain control of your Schedule management with our intuitive trash bin functionality."
         />
       </Head>
       <TaskLayout />

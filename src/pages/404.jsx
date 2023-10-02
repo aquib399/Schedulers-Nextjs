@@ -30,16 +30,14 @@ export default function NotFound404() {
         <title>Page not found</title>
         <meta
           name="description"
-          content="Oops! It looks like you've wandered off the task list. Our apologies for the detour. Return to organized productivity with our todo app, where your tasks are always on track."
+          content="Oops! It looks like you've wandered off the schedule list. Our apologies for the detour. Return to organized productivity with our todo app, where your tasks are always on track."
         />
       </Head>
-      <div className="fixed center-full bg-white">
-        <h1 className="my-3 text-6xl italic font-bold font-mono animate-bounce">404! NOT FOUND!!</h1>
-        <p className="font-mono italic text-center">
-          Someone must've eaten this page, but don't worry, we also have a task to return you back to the home page."
-        </p>
+      <div className="fixed center-full bg-white font-['Cartograph_CF']">
+        <h1 className="my-3 text-6xl italic font-bold animate-bounce">404! NOT FOUND!!</h1>
+        <p className="italic text-center">Good news that is you're returning back to the home page in</p>
         <p className="font-mono itali">
-          Home page in {time} seconds{tick1 + tick2 + tick3} {"‎ "}
+          {time} seconds{tick1 + tick2 + tick3} {"‎ "}
         </p>
       </div>
     </>

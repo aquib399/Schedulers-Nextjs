@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-exports.sendMail = function sendMail(to, fName) {
+exports.sendMail = function sendMail(to, fName, schedule) {
   console.log(to, fName);
   const transport = nodemailer.createTransport({
     service: "gmail",
@@ -13,10 +13,10 @@ exports.sendMail = function sendMail(to, fName) {
   const otp = Math.floor(Math.random() * 899999 + 100000);
 
   const option = {
-    from: "Todo App",
+    from: "SCHEDULERS",
     to,
-    subject: "Verify Your Account To Create An Account",
-    html: getHtml(otp, fName),
+    subject: schedule ? "Hey folk here's your schedule" : "Verify Your Account To Create An Account",
+    html: schedule ? getSchedule(schedule) : getHtml(otp, fName),
   };
 
   return new Promise((res, rej) => {
@@ -31,6 +31,9 @@ exports.sendMail = function sendMail(to, fName) {
     });
   });
 };
+function getSchedule(schedule) {
+  return schedule;
+}
 function getHtml(otp, fName) {
   return `<div style="margin: auto; max-width: 600px; font-family: 'Verdana', 'consolas'">
   <table width="100%">
@@ -39,8 +42,8 @@ function getHtml(otp, fName) {
         <td style="background-color: #fff; color: #444; line-height: 120%; padding: 15px 35px">
           <h1 style="font-size: 18px; font-weight: bold; line-height: 1.3;">Hey ${fName} Verify your email address</h1>
           <p style="margin: 0; padding: 0; font-size: 12px; text-align: justify;">
-            Thanks for being a member of Todo APP. We want to make sure it's really you. Please enter the following verification code when
-            prompted. If you see this suspicious or don’t want to create an account, ignore this message.
+            Thanks for being a member of SCHEDULERS. We want to make sure it's really you. Please enter the following verification code when
+            prompted. If you see this suspicious or don't want to create an account, ignore this message.
           </p>
         </td>
       </tr>

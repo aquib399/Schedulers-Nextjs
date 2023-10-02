@@ -1,4 +1,4 @@
-const { addUser, checkUser, addTask, getTask } = require("./database/db");
+const { addUser, checkUser, addTask, getTask, saveSetting, getProfile } = require("./database/db");
 const { sendMail } = require("./api/nodemailer");
 const cors = require("cors");
 const express = require("express");
@@ -9,7 +9,7 @@ let data = {};
 let interval = false;
 const resendTime = 1000 * 60; //second to delay;
 
-app.use(express.json(), cors({ origin: process.env.ORIGIN.split(","), optionsSuccessStatus: 200 }));
+app.use(express.json(), cors({ origin: process.env.ORIGIN.split(",") }));
 
 app.post("/directADD", async (req, res) => {
   const { username, password, fName, lName, email } = req.body;
@@ -103,6 +103,7 @@ app.post("/signIn", async (req, res) => {
 
 app.post("/addTask", async (req, res) => {
   const { username, password, task } = req.body;
+  task["completed"] = true;
   const success = await addTask(username, password, task);
   if (success) {
     console.log("Task added successfully", task);
@@ -133,7 +134,35 @@ app.post("/sendMsg", async (req, res) => {
   res.status(200).json({ msg: "Sending message", username, recepient });
 });
 
-app.get("/", (req, res) => res.status(200).json({ msg: "Last Push, Everthing looks fine", origin: process.env.ORIGIN.split(",") }));
+app.get("/saveSetting", async (req, res) => {
+  const { username, fName, lName, oldPassword, password } = req.body;
+  let success = await checkUser(username, oldPassword);
+  if (!success) {
+    console.log("Wrong username / wrong old password");
+    res.status(403).json("Old password is wrong");
+    return;
+  }
+  let status = await saveSetting(username, fName, lName, oldPassword, password);
+  if (!status) {
+    console.log("Updated successfully");
+    res.status(200).json({ msg: "Settings applied successfully" });
+    return;
+  }
+  res.status(status).json({ msg: "Something went wrong" });
+});
+
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "Last Push, Everthing looks fine", origin: process.env.ORIGIN.split(",") });
+});
+app.get("/profile/:username", async (req, res) => {
+  const username = req.params.username;
+  const data = await getProfile(username);
+  if (data) {
+    res.status(200).json(data);
+    return;
+  }
+  res.status(404).json({ msg: "not found" });
+});
 
 app.listen(process.env.PORT, console.log(`Listening at http://localhost:${process.env.PORT}`));
 
@@ -155,7 +184,6 @@ function checkTime(email) {
 }
 // For deleting the mail's instance if not verfied within 10 times Timelimit for every 30 seconds
 function validity() {
-  let cnt = 0;
   interval = setInterval(() => {
     const temp = Date.now() - resendTime * 10;
     const arr = Object.entries(data);
