@@ -134,7 +134,7 @@ app.post("/sendMsg", async (req, res) => {
   res.status(200).json({ msg: "Sending message", username, recepient });
 });
 
-app.get("/saveSetting", async (req, res) => {
+app.post("/saveSetting", async (req, res) => {
   const { username, fName, lName, oldPassword, password } = req.body;
   let success = await checkUser(username, oldPassword);
   if (!success) {
@@ -148,12 +148,10 @@ app.get("/saveSetting", async (req, res) => {
     res.status(200).json({ msg: "Settings applied successfully" });
     return;
   }
+  console.log("Wrong old password");
   res.status(status).json({ msg: "Something went wrong" });
 });
 
-app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Last Push, Everthing looks fine", origin: process.env.ORIGIN.split(",") });
-});
 app.get("/profile/:username", async (req, res) => {
   const username = req.params.username;
   const data = await getProfile(username);
@@ -162,6 +160,10 @@ app.get("/profile/:username", async (req, res) => {
     return;
   }
   res.status(404).json({ msg: "not found" });
+});
+
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "Last Push, Everthing looks fine", origin: process.env.ORIGIN.split(",") });
 });
 
 app.listen(process.env.PORT, console.log(`Listening at http://localhost:${process.env.PORT}`));
@@ -174,6 +176,7 @@ async function getTaskRoute(req) {
   console.log("Wrong credentials || Internal server error");
   return false;
 }
+
 function checkTime(email) {
   const temp = Date.now() - resendTime;
   if (temp >= data[email].time) {
@@ -182,6 +185,7 @@ function checkTime(email) {
   const remaining = Math.round((data[email].time - temp) / 1000);
   return remaining;
 }
+
 // For deleting the mail's instance if not verfied within 10 times Timelimit for every 30 seconds
 function validity() {
   interval = setInterval(() => {

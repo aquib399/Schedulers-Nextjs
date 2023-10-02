@@ -5,6 +5,7 @@ import { server, getCookie } from "../../../middleware/auth";
 import { useState, useEffect } from "react";
 
 export default function All() {
+  const spanStyle = "flex items-center py-1 px-2 border rounded-3xl group-hover:border-[rgb(150,150,150)] transition-[border]";
   const [task, setTask] = useState([]);
   const [userTask, setUserTask] = useState([]);
   const { username, password } = getCookie();
@@ -41,6 +42,9 @@ export default function All() {
         >
           <h1 className="text-3xl my-3 font-bold">All Schedule</h1>
           {task.map((e) => {
+            {
+              console.log(e);
+            }
             return (
               <div
                 key={e._id}
@@ -53,11 +57,12 @@ export default function All() {
                   {e.title.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())}
                 </div>
                 <div className="w-full line-clamp-1">{e.description}</div>
-                <div className="flex justify-between items-center w-full text-xs">
-                  <span className="border py-1 px-2 rounded-3xl flex items-center group-hover:border-[rgb(100,100,100)] transition-[border]">
-                    {e.type}
+                <div className="flex justify-between items-center w-full text-xs mt-1">
+                  <span className={spanStyle}>{e.type}</span>
+                  <span className={spanStyle + " gap-x-2"}>
+                    Completed <input type="checkbox" />
                   </span>
-                  <span>{e.time}</span>
+                  <span className={spanStyle}>{e.time}</span>
                 </div>
               </div>
             );

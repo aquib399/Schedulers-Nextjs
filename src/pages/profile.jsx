@@ -9,7 +9,11 @@ export default function Profile() {
   useEffect(() => {
     fetch(server + "/profile/" + username)
       .then((res) => res.json())
-      .then(setUserData);
+      .then(setUserData)
+      .catch((err) => {
+        console.log(err);
+        alert("Connection lost to server");
+      });
   }, []);
   return (
     <>
@@ -24,7 +28,13 @@ export default function Profile() {
         <h1 className="text-3xl my-3 font-bold">Profile</h1>
         <div className="flex flex-col items-center gap-4"></div>
         {Object.entries(userData).map(([key, val]) => {
-          return <p>{key} : {val}</p>;
+          return (
+            <div key={key}>
+              <p>
+                {key} : {val}
+              </p>
+            </div>
+          );
         })}
         <form
           onSubmit={(e) => {

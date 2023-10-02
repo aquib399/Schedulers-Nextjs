@@ -14,6 +14,7 @@ exports.hashPass = async function hashPass(password) {
     });
   });
 };
+
 exports.checkHash = async function checkHash(password, hash) {
   return new Promise((res, rej) => {
     try {

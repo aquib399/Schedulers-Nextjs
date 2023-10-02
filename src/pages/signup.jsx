@@ -18,6 +18,7 @@ export default function Signup() {
   const inputStyle = `w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all`;
   const btnStyle = `py-2 w-80 font-bold tracking-[4px] border border-black 
   hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
+
   async function submit(e) {
     e.preventDefault();
     const username = document.getElementById("username").value;
@@ -75,11 +76,11 @@ export default function Signup() {
             REGISTER YOURSELF.
           </span>
           <form className="flex flex-col gap-3" onSubmit={submit}>
-            <input placeholder="Username..." type="text" id="username" className={inputStyle} />
-            <input placeholder="First Name..." type="text" id="fName" className={inputStyle} />
-            <input placeholder="Last Name..." type="text" id="lName" className={inputStyle} />
-            <input placeholder="Email..." type="email" id="email" className={inputStyle} />
-            <input placeholder="Password..." type="password" id="password" className={inputStyle} />
+            <input className={inputStyle} required placeholder="Username...  " type="text" id="username" />
+            <input className={inputStyle} required placeholder="First Name..." type="text" id="fName" />
+            <input className={inputStyle} required placeholder="Last Name... " type="text" id="lName" />
+            <input className={inputStyle} required placeholder="Email...     " type="email" id="email" />
+            <input className={inputStyle} required placeholder="Password...  " type="password" id="password" />
             <span
               className="text-right text-xs font-bold text-blue-600 hover:underline hover:cursor-pointer"
               onClick={() => Router.replace("/login")}

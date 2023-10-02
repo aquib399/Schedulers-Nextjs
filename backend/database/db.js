@@ -29,7 +29,6 @@ exports.checkUser = checkUser = async function checkUser(username, password) {
   try {
     const user = await userDB.findOne({ username });
     if (!user) return false;
-    console.log(user.password);
     return await checkHash(password, user.password);
   } catch (err) {
     console.log(err);
@@ -81,7 +80,6 @@ exports.saveSetting = async function saveSetting(username, fName, lName, oldPass
     if (!user) return 404; // wrong username
     const success = await checkHash(oldPassword, user.password);
     if (!success) return 403; // wrong password
-
     const password = await hashPass(newPassword);
     const filter = { username };
     const update = { $set: { fName, lName, password } };
