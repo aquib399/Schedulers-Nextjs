@@ -1,6 +1,6 @@
 import cookie from "js-cookie";
-// export const server = "https://backend-1-e4683154.deta.app"; //production
-export const server = "http://localhost:8080"; // developement
+export const server = "https://backend-1-e4683154.deta.app"; ///production
+// export const server = "http://localhost:8080"; // developement
 export function setCookie(username, password) {
   cookie.set("username", username, { expires: 30 });
   cookie.set("password", password, { expires: 30 });
