@@ -59,8 +59,8 @@ export default function All() {
                 <div className="w-full line-clamp-1">{e.description}</div>
                 <div className="flex justify-between items-center w-full text-xs mt-1">
                   <span className={spanStyle}>{e.type}</span>
-                  <span className={spanStyle + " gap-x-2"}>
-                    Completed <input type="checkbox" />
+                  <span id="completion" className={spanStyle + ` gap-x-2 ${e.completed && "bg-blue-100 group-hover:text-black"}` }>
+                    {e.completed ? "Completed" : "Pending"}
                   </span>
                   <span className={spanStyle}>{e.time}</span>
                 </div>
@@ -75,6 +75,7 @@ export default function All() {
             description={userTask.description}
             time={userTask.time}
             type={userTask.type}
+            completed={userTask.completed}
           />
         ) : null}
       </div>

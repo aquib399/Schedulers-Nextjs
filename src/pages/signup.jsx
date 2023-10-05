@@ -18,9 +18,17 @@ export default function Signup() {
   const inputStyle = `w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all`;
   const btnStyle = `py-2 w-80 font-bold tracking-[4px] border border-black 
   hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
-
+  let flag = true;
   async function submit(e) {
     e.preventDefault();
+    if (!flag) return;
+    flag = false;
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.disabled = false;
+      flag = true;
+    }, 4000);
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const fName = document.getElementById("fName").value;
@@ -34,6 +42,7 @@ export default function Signup() {
       },
       body: JSON.stringify(userData),
     }).catch((err) => {
+      btn.disabled = false;
       console.log(err);
       alert("Server error");
     });
@@ -45,7 +54,6 @@ export default function Signup() {
       alert("Username or Email already in use");
     } else if (res?.status == 500) alert("Error while sending email");
     else if (res?.status == 409) {
-      const data = await res?.json();
       alert(`Please wait ${data.time} seconds before sending another OTP`);
     }
   }
@@ -87,7 +95,7 @@ export default function Signup() {
             >
               Already a member?
             </span>
-            <button type="submit" className={btnStyle}>
+            <button id="submitBtn" type="submit" className={btnStyle}>
               SIGNUP
             </button>
           </form>

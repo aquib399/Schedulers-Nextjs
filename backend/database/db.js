@@ -32,7 +32,7 @@ exports.checkUser = checkUser = async function checkUser(username, password) {
     return await checkHash(password, user.password);
   } catch (err) {
     console.log(err);
-    return 500;
+    return false;
   }
 };
 
@@ -113,4 +113,38 @@ exports.getProfile = async function getProfile(username) {
   }
   let pendingCount = taskCount - completedCount;
   return { fName, lName, taskCount, pendingCount, completedCount };
+};
+
+exports.deleteTask = async function deleteTask(username, _id) {
+  try {
+    const success = await taskDB.deleteOne({ _id });
+    console.log("Sucess :", success);
+    if (success.deletedCount) {
+      let arr = await userDB.findOne({ username });
+      const x = new mongoose.Types.ObjectId(_id);
+      console.log("---------------->", x);
+      arr.task.remove(x);
+      await arr.save();
+      return 200;
+    }
+  } catch (err) {
+    console.log(err);
+    return 404;
+  }
+};
+
+exports.completeTask = async function completeTask(_id) {
+  try {
+    const task = await taskDB.findOne({ _id });
+    if (!task) return false;
+    const completed = !task.completed;
+    const success = await taskDB.updateOne({ _id }, { $set: { completed } });
+    if (success.modifiedCount) {
+      console.log(success);
+      return { status: 200, completed }; //OK
+    }
+    return { status: 404, completed };
+  } catch (err) {
+    return { status: 404, completed };
+  }
 };

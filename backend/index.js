@@ -1,10 +1,11 @@
-const { addUser, checkUser, addTask, getTask, saveSetting, getProfile } = require("./database/db");
+const { addUser, checkUser, addTask, getTask, saveSetting, getProfile, deleteTask, completeTask } = require("./database/db");
 const { sendMail } = require("./api/nodemailer");
 const cors = require("cors");
 const express = require("express");
 const userDB = require("./database/model/user");
 const app = express();
 
+console.clear();
 let data = {};
 let interval = false;
 const resendTime = 1000 * 60; //second to delay;
@@ -92,18 +93,18 @@ app.post("/verifyOTP", async (req, res) => {
 app.post("/signIn", async (req, res) => {
   const { username, password } = req.body;
   const success = await checkUser(username, password);
-  if (success) {
-    res.status(200).json({ msg: "Successfully logged in", username });
-    console.log("Password verfied", { username, password });
+  if (!success) {
+    res.status(403).json({ msg: "Wrong credentials/Cookie not valid" });
+    console.log("Wrong credentials/Cookie not valid", { username, password });
     return;
   }
-  res.status(403).json({ msg: "Wrong credentials/Cookie not valid" });
-  console.log("Wrong credentials/Cookie not valid", { username, password });
+  res.status(200).json({ msg: "Successfully logged in", username });
+  console.log("Password verfied", { username, password });
 });
 
 app.post("/addTask", async (req, res) => {
   const { username, password, task } = req.body;
-  task["completed"] = true;
+  task["completed"] = false;
   const success = await addTask(username, password, task);
   if (success) {
     console.log("Task added successfully", task);
@@ -134,7 +135,7 @@ app.post("/sendMsg", async (req, res) => {
   res.status(200).json({ msg: "Sending message", username, recepient });
 });
 
-app.post("/saveSetting", async (req, res) => {
+app.put("/saveSetting", async (req, res) => {
   const { username, fName, lName, oldPassword, password } = req.body;
   let success = await checkUser(username, oldPassword);
   if (!success) {
@@ -162,9 +163,34 @@ app.get("/profile/:username", async (req, res) => {
   res.status(404).json({ msg: "not found" });
 });
 
-app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Last Push, Everthing looks fine", origin: process.env.ORIGIN.split(",") });
+app.delete("/deleteTask", async (req, res) => {
+  const { username, password, _id } = req.body;
+  let success = await checkUser(username, password);
+  if (!success) {
+    console.log("Wrong username or password");
+    res.status(403).json({ msg: "Wrong username or password" });
+    return;
+  }
+  const status = await deleteTask(username, _id);
+  const msg = status == 404 ? "Task Not found" : "Deleted Successfully";
+  res.status(status).json({ msg });
 });
+
+app.post("/completeTask", async (req, res) => {
+  const { username, password, _id } = req.body;
+  let success = await checkUser(username, password);
+  if (!success) {
+    console.log("Wrong username or password");
+    res.status(403).json({ msg: "Wrong username or password" });
+    return;
+  }
+  const completed = await completeTask(_id);
+  console.log("The status of completion", completed);
+  const msg = completed.status == 200 ? "OK" : "Something went wrong";
+  res.status(completed.status).json({ completed: completed.completed, msg });
+});
+
+app.get("/", (req, res) => res.status(200).json({ msg: "Everthing looks fine", origin: process.env.ORIGIN.split(",") }));
 
 app.listen(process.env.PORT, console.log(`Listening at http://localhost:${process.env.PORT}`));
 
