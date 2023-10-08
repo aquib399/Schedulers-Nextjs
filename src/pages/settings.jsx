@@ -26,7 +26,6 @@ export default function Settings() {
       alert("Password must be matched");
       return;
     }
-
     const { username } = getCookie();
     const oldPassword = document.getElementById("oldPassword").value;
     const fName = document.getElementById("fName").value;
@@ -43,10 +42,11 @@ export default function Settings() {
       console.error(err);
       alert("Server error please try again");
     });
+    console.log(res);
     if (res?.status == 200) {
       alert("Settings successfully saved");
       setCookie(username, password);
-    } else alert("Try again");
+    } else alert("Old password wrong; Try again");
   }
   const inputstyle = `w-60 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all`;
   return (

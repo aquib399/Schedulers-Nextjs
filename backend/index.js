@@ -5,7 +5,6 @@ const express = require("express");
 const userDB = require("./database/model/user");
 const app = express();
 
-console.clear();
 let data = {};
 let interval = false;
 const resendTime = 1000 * 60; //second to delay;
@@ -135,9 +134,10 @@ app.post("/sendMsg", async (req, res) => {
   res.status(200).json({ msg: "Sending message", username, recepient });
 });
 
-app.put("/saveSetting", async (req, res) => {
+app.post("/saveSetting", async (req, res) => {
   const { username, fName, lName, oldPassword, password } = req.body;
   let success = await checkUser(username, oldPassword);
+  console.table(req.body);
   if (!success) {
     console.log("Wrong username / wrong old password");
     res.status(403).json("Old password is wrong");

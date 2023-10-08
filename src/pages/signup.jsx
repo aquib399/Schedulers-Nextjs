@@ -62,7 +62,7 @@ export default function Signup() {
     <>
       <Head>
         <title>SIGNUP | SCHEDULERS</title>
-        <meta name="description" content="Signup to SCHEDULERS app to open the world of tasks" />
+        <meta name="description" content="Signup to SCHEDULERS app to open the world of Schedules" />
       </Head>
       <div className="flex justify-center align-center h-screen w-screen fixed bg-white">
         <div
