@@ -23,10 +23,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    task: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "task"
-    }]
+    schedule: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "schedule",
+      },
+    ],
   },
   {
     versionKey: false,

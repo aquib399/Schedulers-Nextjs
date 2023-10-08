@@ -8,21 +8,19 @@ export default function Navbar({ user, premium }) {
         <Link href={"/profile"}>
           <button
             className={`h-8 w-8 rounded-md text-white ${
-              premium ? "bg-gradient-to-br from-amber-500  via-amber-400 to-amber-500" : "bg-zinc-800"
+              premium ? "bg-gradient-to-br from-amber-500 via-amber-400 to-amber-500" : "bg-zinc-800"
             }`}
           >
             {user[0]}
           </button>
         </Link>
       </abbr>
-
       <div className="flex flex-col flex-1 gap-5">
         <NavEle title="Home" href="/">
           <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
           <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
         </NavEle>
-
-        <NavEle title="Tasks" href="/task">
+        <NavEle title={"Schedules"} href="/schedule">
           <path
             fillRule="evenodd"
             d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
@@ -42,7 +40,6 @@ export default function Navbar({ user, premium }) {
             clipRule="evenodd"
           />
         </NavEle>
-
         <NavEle title={"Settings"} href="/settings">
           <path
             fillRule="evenodd"
@@ -51,7 +48,6 @@ export default function Navbar({ user, premium }) {
           />
         </NavEle>
       </div>
-
       <NavEle title={"INFO"} href="/info">
         <path
           fillRule="evenodd"

@@ -1,4 +1,4 @@
-const { addUser, checkUser, addTask, getTask, saveSetting, getProfile, deleteTask, completeTask } = require("./database/db");
+const { addUser, checkUser, addSchedule, getSchedule, saveSetting, getProfile, deleteSchedule, completeSchedule } = require("./database/db");
 const { sendMail } = require("./api/nodemailer");
 const cors = require("cors");
 const express = require("express");
@@ -102,31 +102,31 @@ app.post("/signIn", async (req, res) => {
   console.log("Password verfied", { username, password });
 });
 
-app.post("/addTask", async (req, res) => {
-  const { username, password, task } = req.body;
-  task["completed"] = false;
-  const success = await addTask(username, password, task);
+app.post("/addSchedule", async (req, res) => {
+  const { username, password, schedule } = req.body;
+  schedule["completed"] = false;
+  const success = await addSchedule(username, password, schedule);
   if (success) {
-    console.log("Task added successfully", task);
-    res.status(200).json({ msg: "Task added successfully" });
+    console.log("Schedule added successfully", schedule);
+    res.status(200).json({ msg: "schedule added successfully" });
     return;
   }
   console.log("Wrong veriication");
   res.status(403).json({ msg: "Wrong verification" });
 });
 
-app.post("/getTask", async (req, res) => {
-  const task = await getTaskRoute(req);
-  if (task) res.status(200).json(task.task);
+app.post("/getSchedule", async (req, res) => {
+  const schedule = await getScheduleRoute(req);
+  if (schedule) res.status(200).json(schedule.schedule);
   else {
     console.log("this it the body", req.body);
     res.status(401).json({ msg: "Wrong credentials nigga" });
   }
 });
 
-app.get("/getTask/:username/:password", async (req, res) => {
-  const task = await getTaskRoute({ body: { username: req.params.username, password: req.params.password } });
-  if (task) res.json(task.task);
+app.get("/getSchedule/:username/:password", async (req, res) => {
+  const schedule = await getScheduleRoute({ body: { username: req.params.username, password: req.params.password } });
+  if (schedule) res.json(schedule.schedule);
   else res.json({ msg: "Wrong credentials" });
 });
 
@@ -163,7 +163,7 @@ app.get("/profile/:username", async (req, res) => {
   res.status(404).json({ msg: "not found" });
 });
 
-app.delete("/deleteTask", async (req, res) => {
+app.delete("/deleteSchedule", async (req, res) => {
   const { username, password, _id } = req.body;
   let success = await checkUser(username, password);
   if (!success) {
@@ -171,12 +171,12 @@ app.delete("/deleteTask", async (req, res) => {
     res.status(403).json({ msg: "Wrong username or password" });
     return;
   }
-  const status = await deleteTask(username, _id);
-  const msg = status == 404 ? "Task Not found" : "Deleted Successfully";
+  const status = await deleteSchedule(username, _id);
+  const msg = status == 404 ? "Schedule Not found" : "Deleted Successfully";
   res.status(status).json({ msg });
 });
 
-app.post("/completeTask", async (req, res) => {
+app.post("/completeSchedule", async (req, res) => {
   const { username, password, _id } = req.body;
   let success = await checkUser(username, password);
   if (!success) {
@@ -184,7 +184,7 @@ app.post("/completeTask", async (req, res) => {
     res.status(403).json({ msg: "Wrong username or password" });
     return;
   }
-  const completed = await completeTask(_id);
+  const completed = await completeSchedule(_id);
   console.log("The status of completion", completed);
   const msg = completed.status == 200 ? "OK" : "Something went wrong";
   res.status(completed.status).json({ completed: completed.completed, msg });
@@ -194,11 +194,11 @@ app.get("/", (req, res) => res.status(200).json({ msg: "Everthing looks fine", o
 
 app.listen(process.env.PORT, console.log(`Listening at http://localhost:${process.env.PORT}`));
 
-async function getTaskRoute(req) {
+async function getScheduleRoute(req) {
   const { username, password } = req.body;
   if (!(username && password)) return false;
-  const task = await getTask(username, password);
-  if (task) return task;
+  const schedule = await getSchedule(username, password);
+  if (schedule) return schedule;
   console.log("Wrong credentials || Internal server error");
   return false;
 }

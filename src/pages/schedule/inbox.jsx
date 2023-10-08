@@ -1,5 +1,5 @@
 import Head from "next/head";
-import TaskLayout from "@/components/TaskLayout";
+import ScheduleLayout from "@/components/ScheduleLayout";
 import InboxBar from "@/components/inboxBar";
 
 export default function Inbox() {
@@ -9,10 +9,10 @@ export default function Inbox() {
         <title>Inbox | SCHEDULERS</title>
         <meta
           name="description"
-          content="Streamline communication and collaboration with our SCHEDULERS app's message inbox feature. Easily exchange task-related messages, updates, and feedback with your team or collaborators. Simplify schedule coordination and enhance productivity with our integrated messaging solution."
+          content="Streamline communication and collaboration with our SCHEDULERS app's message inbox feature. Easily exchange Schedule-related messages, updates, and feedback with your team or collaborators. Simplify schedule coordination and enhance productivity with our integrated messaging solution."
         />
       </Head>
-      <TaskLayout />
+      <ScheduleLayout />
       <div className="flex">
         <div className="flex flex-col w-[60%] gap-2">
           <h1 className="text-3xl my-3 font-bold">Inbox</h1>

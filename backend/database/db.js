@@ -1,7 +1,7 @@
 const { hashPass, checkHash } = require("../api/encrypt");
 const mongoose = require("mongoose");
 const userDB = require("./model/user");
-const taskDB = require("./model/task");
+const scheduleDB = require("./model/schedule");
 mongoose.connect(process.env.URL);
 const db = mongoose.connection;
 db.on("open", () => console.log("DB Connected"));
@@ -36,18 +36,18 @@ exports.checkUser = checkUser = async function checkUser(username, password) {
   }
 };
 
-exports.addTask = async function getTask(username, password, taskProp) {
-  console.table(taskProp);
+exports.addSchedule = async function getSchedule(username, password, scheduleProp) {
+  console.table(scheduleProp);
   try {
     if (!(await checkUser(username, password))) return false;
-    if (!taskProp?.completedCount) {
-      taskProp.completedCount = false;
+    if (!scheduleProp?.completedCount) {
+      scheduleProp.completedCount = false;
     }
-    const task = new taskDB(taskProp);
+    const schedule = new scheduleDB(scheduleProp);
     const user = await userDB.findOne({ username });
-    user.task.push(task._id);
+    user.schedule.push(schedule._id);
     await user.save();
-    await task.save();
+    await schedule.save();
     return true;
   } catch (err) {
     console.log(err);
@@ -55,17 +55,17 @@ exports.addTask = async function getTask(username, password, taskProp) {
   }
 };
 
-exports.getTask = async function getTask(username, password) {
+exports.getSchedule = async function getSchedule(username, password) {
   try {
     if (!(await checkUser(username, password))) return false;
-    const userTasks = await userDB
+    const userSchedules = await userDB
       .findOne({ username })
       .select({
         username: true,
-        task: true,
+        schedule: true,
       })
-      .populate("task");
-    return userTasks;
+      .populate("schedule");
+    return userSchedules;
   } catch (err) {
     console.log(err);
     return false;
@@ -102,28 +102,28 @@ exports.getProfile = async function getProfile(username) {
   if (!user) return false;
   let fName = user.fName;
   let lName = user.lName;
-  let taskCount = user.task.length;
+  let scheduleCount = user.schedule.length;
   let completedCount = 0;
 
-  for (const taskId of user.task) {
-    const task = await taskDB.findById(taskId);
-    if (task?.completed) {
+  for (const scheduleId of user.schedule) {
+    const schedule = await scheduleDB.findById(scheduleId);
+    if (schedule?.completed) {
       completedCount++;
     }
   }
-  let pendingCount = taskCount - completedCount;
-  return { fName, lName, taskCount, pendingCount, completedCount };
+  let pendingCount = scheduleCount - completedCount;
+  return { fName, lName, scheduleCount, pendingCount, completedCount };
 };
 
-exports.deleteTask = async function deleteTask(username, _id) {
+exports.deleteSchedule = async function deleteSchedule(username, _id) {
   try {
-    const success = await taskDB.deleteOne({ _id });
+    const success = await scheduleDB.deleteOne({ _id });
     console.log("Sucess :", success);
     if (success.deletedCount) {
       let arr = await userDB.findOne({ username });
       const x = new mongoose.Types.ObjectId(_id);
       console.log("---------------->", x);
-      arr.task.remove(x);
+      arr.schedule.remove(x);
       await arr.save();
       return 200;
     }
@@ -133,12 +133,12 @@ exports.deleteTask = async function deleteTask(username, _id) {
   }
 };
 
-exports.completeTask = async function completeTask(_id) {
+exports.completeSchedule = async function completeSchedule(_id) {
   try {
-    const task = await taskDB.findOne({ _id });
-    if (!task) return false;
-    const completed = !task.completed;
-    const success = await taskDB.updateOne({ _id }, { $set: { completed } });
+    const schedule = await scheduleDB.findOne({ _id });
+    if (!schedule) return false;
+    const completed = !schedule.completed;
+    const success = await scheduleDB.updateOne({ _id }, { $set: { completed } });
     if (success.modifiedCount) {
       console.log(success);
       return { status: 200, completed }; //OK

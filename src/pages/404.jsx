@@ -30,7 +30,7 @@ export default function NotFound404() {
         <title>Page not found</title>
         <meta
           name="description"
-          content="Oops! It looks like you've wandered off the schedule list. Our apologies for the detour. Return to organized productivity with our todo app, where your tasks are always on track."
+          content="Oops! It looks like you've wandered off the schedule list. Our apologies for the detour. Return to organized productivity with our todo app, where your ScheduleS are always on track."
         />
       </Head>
       <div className="fixed center-full bg-white font-['Cartograph_CF']">

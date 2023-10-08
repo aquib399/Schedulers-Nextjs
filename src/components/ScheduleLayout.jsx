@@ -1,20 +1,17 @@
 import SideEle from "./sideEle";
 
-export default function TaskLayout() {
+export default function ScheduleLayout() {
   return (
     <nav className="flex flex-col min-w-[13.3rem] px-2 py-4 text-sm border-r border-zinc-400 h-[100vh]">
       <div className="flex flex-col flex-1 gap-2 items-center">
-        <SideEle text={"Add Task"} href={"/"}>
+        <SideEle text={"Add Schedule"} href={"/"}>
           <path
             fillRule="evenodd"
             d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
             clipRule="evenodd"
           />
         </SideEle>
-        <SideEle text={"Today"} href={"/today"}>
-          <path d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" />
-        </SideEle>
-        <SideEle text={"All Task"} href={"/all"}>
+        <SideEle text={"All Schedule"} href={"/all"}>
           <path d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" />
         </SideEle>
         <SideEle text={"Inbox"} href={"/inbox"}>

@@ -27,7 +27,7 @@ export default function Login() {
           }
         >
           <div className="flex flex-col">
-            <span className="text-blue-300">TASK GOES</span>
+            <span className="text-blue-300">WORK GOES</span>
             <span className="text-slate-300">EASY WITH</span>
             <span className="flex bg-gradient-to-r from-blue-500 to-amber-500 bg-clip-text text-transparent">
               SCHEDULERS<span className="flex text-3xl p-1">®</span>

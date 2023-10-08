@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const taskSchema = new mongoose.Schema(
+const scheduleSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -28,5 +28,5 @@ const taskSchema = new mongoose.Schema(
   }
 );
 
-const taskDB = mongoose.model("task", taskSchema);
-module.exports = taskDB;
+const scheduleDB = mongoose.model("schedule", scheduleSchema);
+module.exports = scheduleDB;

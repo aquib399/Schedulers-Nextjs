@@ -6,7 +6,7 @@ export default function Home() {
         <title>Home | SCHEDULERS</title>
         <meta
           name="description"
-          content="Discover the ultimate SCHEDULERS app to streamline your life. Simplify task management, set priorities, and achieve your goals effortlessly. Take control of your day with our intuitive and feature-rich SCHEDULERS application"
+          content="Discover the ultimate SCHEDULERS app to streamline your life. Simplify Schedule management, set priorities, and achieve your goals effortlessly. Take control of your day with our intuitive and feature-rich SCHEDULERS application"
         />
       </Head>
       <div className="flex flex-col">

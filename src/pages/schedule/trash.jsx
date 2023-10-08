@@ -1,5 +1,5 @@
 import Head from "next/head";
-import TaskLayout from "@/components/TaskLayout";
+import ScheduleLayout from "@/components/ScheduleLayout";
 
 export default function Trash() {
   return (
@@ -11,7 +11,7 @@ export default function Trash() {
           content="Recover or permanently delete schedule with ease using our SCHEDULERS app's trash bin feature. Keep your Schedule list tidy and manage discarded items effortlessly. Regain control of your Schedule management with our intuitive trash bin functionality."
         />
       </Head>
-      <TaskLayout />
+      <ScheduleLayout />
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl my-3 font-bold">Trash Bin</h1>
         <p>

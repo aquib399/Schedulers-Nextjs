@@ -1,13 +1,13 @@
 import { getCookie, server } from "../../middleware/auth";
 
-export default function TaskDetailLayout({ _id, title, description, time, type, complete }) {
-  async function completeTask() {
+export default function ScheduleDetailLayout({ _id, title, description, time, type, complete }) {
+  async function completeSchedule() {
     const btn = document.getElementById("complete");
     btn.innerText = btn.innerText == "COMPLETED" ? "NOT COMPLETED" : "COMPLETED";
     btn.disabled = true;
 
     const { username, password } = getCookie();
-    const res = await fetch(server + "/completeTask", {
+    const res = await fetch(server + "/completeSchedule", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,19 +18,16 @@ export default function TaskDetailLayout({ _id, title, description, time, type, 
       alert("Something went wrong while updating");
     });
     if (res?.status == 200) {
-      alert("Task completed successfully");
-      const msg = document.getElementById("completion");
-      if (msg.innerText == "Pending") msg.innerText = "Completed";
-      else msg.innerText = "Pending";
+      alert("Schedule completed successfully");
     } else if (res?.status == 404) alert("Something went wrong; cant update");
     btn.disabled = false;
   }
-  async function deleteTask() {
+  async function deleteSchedule() {
     const btn = document.getElementById("delete");
-    const flag = confirm("Are you sure you want to delete this task");
+    const flag = confirm("Are you sure you want to delete this schedule");
     if (flag) {
       const { username, password } = getCookie();
-      const res = await fetch(server + "/deleteTask", {
+      const res = await fetch(server + "/deleteSchedule", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +37,7 @@ export default function TaskDetailLayout({ _id, title, description, time, type, 
         console.error(err);
         alert("Something went wrong, refresh this page");
       });
-      if (res?.status == 200) alert("Task deleted succesfully");
+      if (res?.status == 200) alert("Schedule deleted succesfully");
       else if (res?.status == 404) alert(`Not found; code : ${res?.status}`);
     }
   }
@@ -59,10 +56,10 @@ export default function TaskDetailLayout({ _id, title, description, time, type, 
           <p className="text-justify">{description}</p>
           <p>{time}</p>
           <p>{type}</p>
-          <button id="complete" onClick={completeTask} className={btnStyle}>
+          <button id="complete" onClick={completeSchedule} className={btnStyle}>
             {complete ? "COMPLETED" : "NOT COMPLETED"}
           </button>
-          <button id="delete" onClick={deleteTask} className={btnStyle}>
+          <button id="delete" onClick={deleteSchedule} className={btnStyle}>
             DELETE
           </button>
         </div>

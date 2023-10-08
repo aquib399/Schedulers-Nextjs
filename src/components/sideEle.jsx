@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SideEle({ children, text, href }) {
   return (
     <Link
-      href={"/task" + href}
+      href={"/schedule" + href}
       className="group flex items-center gap-2 w-full ull p-2 rounded hover:bg-zinc-800 hover:text-white transition-all"
     >
       <svg

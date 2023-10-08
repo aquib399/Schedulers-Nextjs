@@ -1,18 +1,18 @@
 import Head from "next/head";
-import TaskLayout from "@/components/TaskLayout";
+import ScheduleLayout from "@/components/ScheduleLayout";
 import { getCookie, server } from "../../../middleware/auth";
 
-export default function Task() {
+export default function Schedule() {
   return (
     <>
       <Head>
         <title>Schedules | SCHEDULERS</title>
         <meta
           name="description"
-          content="Optimize your schedule organization with our powerful SCHEDULERS app feature. Effortlessly categorize, prioritize, and arrange your tasks for maximum efficiency. Take control of your daily schedule and boost productivity like never before."
+          content="Optimize your schedule organization with our powerful SCHEDULERS app feature. Effortlessly categorize, prioritize, and arrange your Schedules for maximum efficiency. Take control of your daily schedule and boost productivity like never before."
         />
       </Head>
-      <TaskLayout />
+      <ScheduleLayout />
       <div className="center-full">
         <h1 className="text-4xl font-bold">Add a Schedule</h1>
         <form
@@ -79,16 +79,16 @@ export default function Task() {
 }
 async function submit() {
   const [title, description, time, type] = ["title", "description", "time", "option"].map((e) => document.getElementById(e).value);
-  const task = { title, description, time, type };
-  console.log(task);
+  const schedule = { title, description, time, type };
+  console.log(schedule);
   const { username, password } = getCookie();
   try {
-    const res = await fetch(server + "/addTask", {
+    const res = await fetch(server + "/addSchedule", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password, task }),
+      body: JSON.stringify({ username, password, schedule }),
     }).catch((err) => {
       console.log(err);
       alert("Validation or server error");
