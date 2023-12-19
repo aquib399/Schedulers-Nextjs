@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-export async function hashPass(password) {
+async function hashPass(password) {
   return new Promise((res, rej) => {
     bcrypt.genSalt(12, function (err, Salt) {
       try {
@@ -16,7 +16,7 @@ export async function hashPass(password) {
   });
 }
 
-export async function checkHash(password, hash) {
+async function checkHash(password, hash) {
   return new Promise((res, rej) => {
     try {
       bcrypt.compare(password, hash, (err, isMatch) => {
@@ -29,3 +29,5 @@ export async function checkHash(password, hash) {
     }
   });
 }
+
+module.exports = { hashPass, checkHash };

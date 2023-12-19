@@ -6,10 +6,10 @@ router.post("/signUp", signUpValidator, auth.signUp);
 router.post("/verifyOtp", verifyOtpValidator, auth.verifyOtp);
 
 function signInValidator(req, res, next) {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!email || !password)
-    return res.status(400).json({ error: true, message: "Email and password are required" });
+  if (!username || !password)
+    return res.status(400).json({ error: true, message: "Username and password are required" });
 
   if (password.length < 8)
     return res.status(400).json({ error: true, message: "Password should be at least 8 characters long" });

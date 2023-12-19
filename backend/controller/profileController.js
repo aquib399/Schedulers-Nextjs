@@ -1,6 +1,8 @@
 const User = require("../model/user");
 const getProfile = async (req, res) => {
+  console.log(req.body);
   let user;
+  return;
   try {
     user = await userDB.findOne({ username });
   } catch (err) {
@@ -43,6 +45,6 @@ const saveSetting = async (req, res) => {
 
 const test = (req, res) => {
   console.log("Testing profile -> /profile/test");
-  return res.json({ error: false, message: "Profile Test Success" });
+  return res.json({ error: false, message: "Profile Test Success", payload: req.body });
 };
 module.exports = { test, getProfile, saveSetting };

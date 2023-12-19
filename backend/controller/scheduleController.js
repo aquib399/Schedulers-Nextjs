@@ -77,7 +77,7 @@ const getAllSchedule = async (req, res) => {
 
 const test = (req, res) => {
   console.log("Testing schedule -> /schedule/test");
-  return res.json({ error: false, message: "Schedule Test Success" });
+  return res.json({ error: false, message: "Schedule Test Success", payload: req.body });
 };
 module.exports = {
   test,
