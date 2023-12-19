@@ -23,8 +23,8 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    profile: {
-      type: Blob,
+    profilePicture: {
+      type: String,
       required: false,
     },
     schedule: [

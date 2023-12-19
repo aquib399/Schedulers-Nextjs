@@ -1,21 +1,22 @@
 const bcrypt = require("bcrypt");
 
-exports.hashPass = async function hashPass(password) {
+export async function hashPass(password) {
   return new Promise((res, rej) => {
-    bcrypt.genSalt(4, function (err, Salt) {
+    bcrypt.genSalt(12, function (err, Salt) {
       try {
         bcrypt.hash(password, Salt, function (err, hash) {
           if (err) res(false);
           res(hash);
         });
       } catch (err) {
+        console.log(err);
         res(false);
       }
     });
   });
-};
+}
 
-exports.checkHash = async function checkHash(password, hash) {
+export async function checkHash(password, hash) {
   return new Promise((res, rej) => {
     try {
       bcrypt.compare(password, hash, (err, isMatch) => {
@@ -23,7 +24,8 @@ exports.checkHash = async function checkHash(password, hash) {
         else res(false);
       });
     } catch (err) {
+      console.log(err);
       res(false);
     }
   });
-};
+}
