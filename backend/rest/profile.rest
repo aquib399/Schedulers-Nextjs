@@ -1,16 +1,16 @@
-###
-get http://localhost:8080/api/profile/getProfile
+### Get profile
+GET http://localhost:8080/api/profile/getProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImltcG9zdGVyIiwiaWF0IjoxNzAzMTA4NTUwLCJleHAiOjE3MDMxMDg2NzB9.Q-TPAkPBtUoRbix2I1w-kIiWZNXeiiLe4aVwdxTMhOc eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMDE5NTA0fQ.0sM5-uy0k4lrX27ns--wZdiqe2HZ4q4eMCWkfk8QmNQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 
-###
-POST http://localhost:8080/api/profile/saveSetting
+### Edit profile
+POST http://localhost:8080/api/profile/editProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImltcG9zdGVyIiwiaWF0IjoxNzAzMTA4NTUwLCJleHAiOjE3MDMxMDg2NzB9.Q-TPAkPBtUoRbix2I1w-kIiWZNXeiiLe4aVwdxTMhOc eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMDE5NTA0fQ.0sM5-uy0k4lrX27ns--wZdiqe2HZ4q4eMCWkfk8QmNQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 
 { 
-	"newPassword":"aquibalam123",
-	"oldPassword":"intmain()",
+	"newPassword":"intmain()",
+	"oldPassword":"aquibalam123",
 	"fName":"Aquib", 
 	"lName":"Alam"
 }

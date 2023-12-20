@@ -1,7 +1,7 @@
 ### Add schedule
 POST http://localhost:8080/api/schedule/addSchedule
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTA4NzkzLCJleHAiOjE3MDMxMDg5NzN9.9BIRqZUF028IidFKDSa5_ZRhn9TPjV7SOxyKiC6H16c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 
 {	
 	"title": "Go to school",
@@ -14,12 +14,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxd
 ### Get all schedule
 GET http://localhost:8080/api/schedule/getAllSchedule
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTA4NzkzLCJleHAiOjE3MDMxMDg5NzN9.9BIRqZUF028IidFKDSa5_ZRhn9TPjV7SOxyKiC6H16c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 
 ### Delete schedule
 POST http://localhost:8080/api/schedule/deleteSchedule
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTA4NzkzLCJleHAiOjE3MDMxMDg5NzN9.9BIRqZUF028IidFKDSa5_ZRhn9TPjV7SOxyKiC6H16c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 {
 	"id":"65835065f2bca9141583eda4"
 }
@@ -27,7 +27,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxd
 ### Edit schedule
 POST http://localhost:8080/api/schedule/editSchedule
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTA4NzkzLCJleHAiOjE3MDMxMDg5NzN9.9BIRqZUF028IidFKDSa5_ZRhn9TPjV7SOxyKiC6H16c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 {
 	"id":"65835704cee9ff95649ad683",
 	"title": "title edited",
@@ -40,9 +40,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxd
 ### Set status 
 POST http://localhost:8080/api/schedule/setScheduleStatus
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImltcG9zdGVyIiwiaWF0IjoxNzAzMTA4NTUwLCJleHAiOjE3MDMxMDg2NzB9.Q-TPAkPBtUoRbix2I1w-kIiWZNXeiiLe4aVwdxTMhOc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
+
 {
-	"id":"6583507cf2bca9141583edb0"
+	"id":"65836109423350bbf99c7db8"
 }
 
 
@@ -51,7 +52,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imltc
 ###Imposter
 POST http://localhost:8080/api/schedule/deleteSchedule
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImltcG9zdGVyIiwiaWF0IjoxNzAzMTA4NTUwLCJleHAiOjE3MDMxMDg2NzB9.Q-TPAkPBtUoRbix2I1w-kIiWZNXeiiLe4aVwdxTMhOc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWliMzk5IiwiaWF0IjoxNzAzMTExNjcwLCJleHAiOjE3MDQ0MDc2NzB9.sz6ZrwsRXxd-SoBwxI9wCNUDnhBjbVzhZb-V2nsubak
 
 {
 	"id":"6583507cf2bca9141583edb0"

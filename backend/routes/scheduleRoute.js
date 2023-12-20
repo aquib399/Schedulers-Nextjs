@@ -5,8 +5,8 @@ const { Types } = require("mongoose");
 router.get("/getAllSchedule", schedule.getAllSchedule);
 router.post("/addSchedule", ScheduleValidator, schedule.addSchedule);
 router.post("/editSchedule", scheduleIdValidator, ScheduleValidator, schedule.editSchedule);
-router.post("/deleteSchedule", scheduleIdValidator, schedule.deleteSchedule);
 router.post("/setScheduleStatus", scheduleIdValidator, schedule.setScheduleStatus);
+router.post("/deleteSchedule", scheduleIdValidator, schedule.deleteSchedule);
 
 function ScheduleValidator(req, res, next) {
   const { title, description, time, type } = req.body;

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { sendMail } = require("../util/nodemailer");
 let data = {};
 
-const signIn = async (req, res) => {
+async function signIn(req, res) {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -21,9 +21,9 @@ const signIn = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Interval server error" });
   }
-};
+}
 
-const signUp = async (req, res) => {
+async function signUp(req, res) {
   try {
     const { username, email, password, fName, lName } = req.body;
 
@@ -55,9 +55,9 @@ const signUp = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Interval server error" });
   }
-};
+}
 
-const verifyOtp = async (req, res) => {
+async function verifyOtp(req, res) {
   try {
     let { email, otp } = req.body;
 
@@ -74,12 +74,12 @@ const verifyOtp = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Interval server error" });
   }
-};
+}
 
-const test = (req, res) => {
+function test(req, res) {
   console.log("Testing auth -> /auth/test");
   return res.json({ error: false, message: "Auth Test Success", payload: req.body });
-};
+}
 
 module.exports = {
   test,

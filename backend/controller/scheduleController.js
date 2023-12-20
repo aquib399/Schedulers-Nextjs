@@ -1,8 +1,7 @@
 const Schedule = require("../model/schedule");
 const User = require("../model/user");
 
-//done
-const addSchedule = async (req, res) => {
+async function addSchedule(req, res) {
   const username = req.username;
 
   const { title, description, time, type } = req.body;
@@ -22,10 +21,9 @@ const addSchedule = async (req, res) => {
     console.log(err);
     return res.json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-//done
-const editSchedule = async (req, res) => {
+async function editSchedule(req, res) {
   const { title, description, time, type } = req.body;
   const username = req.username;
   const id = req.id;
@@ -43,10 +41,9 @@ const editSchedule = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-//done
-const deleteSchedule = async (req, res) => {
+async function deleteSchedule(req, res) {
   const username = req.username;
   const id = req.id;
 
@@ -64,10 +61,9 @@ const deleteSchedule = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-//done
-const setScheduleStatus = async (req, res) => {
+async function setScheduleStatus(req, res) {
   const username = req.username;
   const id = req.id;
   try {
@@ -84,10 +80,9 @@ const setScheduleStatus = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-//done
-const getAllSchedule = async (req, res) => {
+async function getAllSchedule(req, res) {
   const username = req.username;
   try {
     const schedules = await User.findOne({ username })
@@ -105,12 +100,12 @@ const getAllSchedule = async (req, res) => {
     console.log(err);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-const test = (req, res) => {
+async function test(req, res) {
   console.log("Testing schedule -> /schedule/test");
   return res.json({ error: false, message: "Schedule Test Success", payload: req.body });
-};
+}
 module.exports = {
   test,
   addSchedule,

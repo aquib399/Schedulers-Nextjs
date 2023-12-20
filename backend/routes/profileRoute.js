@@ -2,7 +2,7 @@ const router = require("express").Router();
 const profile = require("../controller/profileController");
 
 router.get("/getProfile", profile.getProfile);
-router.post("/saveSetting", settingValidator, profile.saveSetting);
+router.post("/editProfile", settingValidator, profile.editProfile);
 
 function settingValidator(req, res, next) {
   const { oldPassword, fName, lName, newPassword } = req.body;

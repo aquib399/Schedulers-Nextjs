@@ -1,7 +1,7 @@
 const User = require("../model/user");
 const { hashPass, checkHash } = require("../util/encrypt");
 
-const getProfile = async (req, res) => {
+async function getProfile(req, res) {
   const username = req.username;
   try {
     const user = await User.findOne({ username }).populate("schedule");
@@ -19,9 +19,9 @@ const getProfile = async (req, res) => {
     console.log(err);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-const saveSetting = async (req, res) => {
+async function editProfile(req, res) {
   const username = req.username;
   const { newPassword, oldPassword, fName, lName } = req.body;
   console.log({ username, ...req.body });
@@ -43,10 +43,10 @@ const saveSetting = async (req, res) => {
     console.log(error);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
-};
+}
 
-const test = (req, res) => {
+function test(req, res) {
   console.log("Testing profile -> /profile/test");
   return res.json({ error: false, message: "Profile Test Success", payload: req.body });
-};
-module.exports = { test, getProfile, saveSetting };
+}
+module.exports = { test, getProfile, editProfile };
