@@ -64,7 +64,7 @@ export default function Completed() {
           })}
         </div>
         {schedule.length ? (
-          <scheduleDetailLayout
+          <ScheduleDetailLayout
             _id={userSchedule._id}
             title={userSchedule.title}
             description={userSchedule.description}

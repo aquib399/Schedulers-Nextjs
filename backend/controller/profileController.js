@@ -1,45 +1,46 @@
 const User = require("../model/user");
+const Schedule = require("../model/schedule");
+
 const getProfile = async (req, res) => {
-  console.log(req.body);
-  let user;
-  return;
+  const username = req.username;
+
   try {
-    user = await userDB.findOne({ username });
+    const user = await User.findOne({ username }).populate("schedule");
+    if (!user)
+      return res.status(400).json({ error: true, message: "Something went wrong, please login again" });
+    const fName = user.fName;
+    const lName = user.lName;
+    const scheduleCount = user.schedule.length;
+    const completedCount = user.schedule.filter((schedule) => schedule.completed).length;
+    const pendingCount = scheduleCount - completedCount;
+
+    const payload = { fName, lName, scheduleCount, pendingCount, completedCount };
+    return res.json({ error: false, message: `${username}'s profile details`, payload });
   } catch (err) {
     console.log(err);
-    return false;
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
-  if (!user) return false;
-  let fName = user.fName;
-  let lName = user.lName;
-  let scheduleCount = user.schedule.length;
-  let completedCount = 0;
-
-  for (const scheduleId of user.schedule) {
-    const schedule = await scheduleDB.findById(scheduleId);
-    if (schedule?.completed) {
-      completedCount++;
-    }
-  }
-  let pendingCount = scheduleCount - completedCount;
-  return { fName, lName, scheduleCount, pendingCount, completedCount };
 };
+
 const saveSetting = async (req, res) => {
-  if (newPassword.length < 8) return 403;
+  if (newPassword.length < 8) return res.status(400).json({ error: true, message: "Password is too short" });
   try {
     const user = await User.findOne({ username });
     console.log("The user is :", user);
-    if (!user) return 404; // wrong username
+    if (!user) return res.status(404).json({ error: true, message: "No user found" });
+
     const success = await checkHash(oldPassword, user.password);
-    if (!success) return 403; // wrong password
+    if (!success) return res.status(403).json({ error: true, message: "Wrong old password" });
+
     const password = await hashPass(newPassword);
     const filter = { username };
     const update = { $set: { fName, lName, password } };
+
     await User.findOneAndUpdate(filter, update);
     return false;
   } catch (err) {
     console.log(err);
-    return 500; //server error
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
 };
 

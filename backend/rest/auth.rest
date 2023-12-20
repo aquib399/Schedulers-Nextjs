@@ -3,7 +3,7 @@ POST http://localhost:8080/auth/signIn
 Content-Type: application/json
 
 {
-	"username": "abc123",
+	"username": "aquib399",
 	"password": "intmain()"
 }
 
@@ -25,6 +25,6 @@ POST http://localhost:8080/auth/verifyOtp
 Content-Type: application/json
 
 {
-	"email":"example@gmail.com",
-	"otp":371652
+	"email":"aquibalam399@gmail.com",
+	"otp":161535
 }

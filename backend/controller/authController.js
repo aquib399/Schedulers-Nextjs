@@ -7,7 +7,6 @@ let data = {};
 const signIn = async (req, res) => {
   try {
     const { username, password } = req.body;
-
     const user = await User.findOne({ username });
     if (!user) return res.status(404).json({ error: true, message: "No user found" });
 
@@ -15,7 +14,9 @@ const signIn = async (req, res) => {
     if (!success) return res.status(403).json({ error: true, message: "Wrong password" });
 
     const token = jwt.sign({ username }, process.env.ACCESS_TOKEN);
-    return res.cookie("authToken", token).json({ error: false, message: "Login Success", payload: { token } });
+    return res
+      .cookie("authToken", token)
+      .json({ error: false, message: "Login Success", payload: { token } });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: true, message: "Interval server error" });
