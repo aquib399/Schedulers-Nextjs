@@ -1,8 +1,8 @@
 const User = require("../model/user");
 const { hashPass, checkHash } = require("../util/encrypt");
+
 const getProfile = async (req, res) => {
   const username = req.username;
-
   try {
     const user = await User.findOne({ username }).populate("schedule");
     if (!user)

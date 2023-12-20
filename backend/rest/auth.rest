@@ -3,7 +3,7 @@ POST http://localhost:8080/auth/signIn
 Content-Type: application/json
 
 {
-	"username": "aquib399",
+	"username": "imposter",
 	"password": "intmain()"
 }
 
@@ -13,11 +13,11 @@ POST http://localhost:8080/auth/signUp
 Content-Type: application/json
 
 {
-	"username": "aquib399",
+	"username": "imposter",
 	"password": "intmain()",
-	"fName": "aquib",
-	"lName": "alam",
-	"email": "aquibalam399@gmail.com"
+	"fName": "Aquib imposter",
+	"lName": "Alam imposter",
+	"email": "imposter399@gmail.com"
 }
 
 ### Verify OTP
@@ -25,6 +25,6 @@ POST http://localhost:8080/auth/verifyOtp
 Content-Type: application/json
 
 {
-	"email":"aquibalam399@gmail.com",
-	"otp":161535
+	"email":"imposter399@gmail.com",
+	"otp": 426568
 }

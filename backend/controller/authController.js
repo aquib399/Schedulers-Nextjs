@@ -26,11 +26,7 @@ const signIn = async (req, res) => {
 const signUp = async (req, res) => {
   try {
     const { username, email, password, fName, lName } = req.body;
-    if (
-      !(password.length >= 8 && username.length >= 3,
-      fName.length && lName.length && email.length >= 6 && password.length >= 8)
-    )
-      return res.status(400).json({ error: true, message: "Invalid Credentials" });
+
 
     const list = Object.keys(data);
     if (list.includes(email)) {

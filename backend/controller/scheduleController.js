@@ -1,77 +1,109 @@
-const { Types } = require("mongoose");
 const Schedule = require("../model/schedule");
 const User = require("../model/user");
 
+//done
 const addSchedule = async (req, res) => {
-  const scheduleProp = {};
+  const username = req.username;
+
+  const { title, description, time, type } = req.body;
+
   try {
-    if (!(await checkUser(username, password))) return false;
-    if (!scheduleProp?.completedCount) {
-      scheduleProp.completedCount = false;
-    }
-    const schedule = new scheduleDB(scheduleProp);
-    const user = await userDB.findOne({ username });
+    const user = await User.findOne({ username });
+    if (!user) return res.status(400).json({ error: true, message: "No user found" });
+
+    const schedule = new Schedule({ title, description, time, type, completed: 0, user: user._id });
+
     user.schedule.push(schedule._id);
+
     await user.save();
     await schedule.save();
-    return true;
+    return res.json({ error: false, message: "Schedule added successfully" });
   } catch (err) {
     console.log(err);
-    return false;
+    return res.json({ error: true, message: "Internal server error" });
   }
 };
 
-const editSchedule = async (req, res) => {};
+//done
+const editSchedule = async (req, res) => {
+  const { title, description, time, type } = req.body;
+  const username = req.username;
+  const id = req.id;
 
+  try {
+    const user = await User.findOne({ username }).select("schedule");
+
+    if (!user.schedule.includes(id))
+      return res.status(404).json({ error: true, message: "Schedule not found" });
+
+    await Schedule.findByIdAndUpdate(id, { $set: { title, description, time, type } });
+
+    return res.json({ error: false, message: "Schedule updated successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: true, message: "Internal server error" });
+  }
+};
+
+//done
 const deleteSchedule = async (req, res) => {
+  const username = req.username;
+  const id = req.id;
+
   try {
-    const success = await Schedule.findByIdAndDelete(_id);
-    console.log("Sucess :", success);
-    if (success.deletedCount) {
-      let arr = await User.findOne({ username });
-      const x = new Types.ObjectId(_id);
-      console.log("---------------->", x);
-      arr.schedule.remove(x);
-      await arr.save();
-      return 200;
-    }
-  } catch (err) {
-    console.log(err);
-    return 404;
+    const user = await User.findOne({ username }).select("schedule");
+
+    if (!user.schedule.includes(id))
+      return res.status(404).json({ error: true, message: "Schedule not found" });
+
+    user.schedule.remove(id);
+    user.save();
+    await Schedule.findByIdAndDelete(id);
+    return res.json({ error: false, message: "Schedule deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
 };
 
-const completeSchedule = async (req, res) => {
-  const { _id } = req.body;
+//done
+const setScheduleStatus = async (req, res) => {
+  const username = req.username;
+  const id = req.id;
   try {
-    const schedule = await Schedule.findById(_id);
-    const completed = !schedule.completed;
-    const success = await Schedule.updateOne({ _id }, { $set: { completed } });
+    const user = await User.findOne({ username }).select("schedule");
 
-    if (success.modifiedCount) {
-      console.log(success);
-      return { status: 200, completed };
-    }
+    if (!user.schedule.includes(id))
+      return res.status(404).json({ error: true, message: "Schedule not found" });
 
-    return { status: 404, completed };
-  } catch (err) {
-    return { status: 404, completed };
+    const schedule = await Schedule.findById(id);
+    schedule.completed = !schedule.completed;
+    schedule.save();
+    return res.json({ error: false, message: `Schedule status updated` });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
 };
 
+//done
 const getAllSchedule = async (req, res) => {
+  const username = req.username;
   try {
-    if (!(await checkUser(username, password))) return false;
-    const userSchedules = await User.findOne({ username })
+    const schedules = await User.findOne({ username })
       .select({
         username: true,
         schedule: true,
       })
       .populate("schedule");
-    return userSchedules;
+
+    if (!schedules.schedule.length)
+      return res.status(404).json({ error: true, message: "No schedules found" });
+
+    return res.json({ error: false, message: "Schedule found", payload: schedules.schedule });
   } catch (err) {
     console.log(err);
-    return false;
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
 };
 
@@ -84,6 +116,6 @@ module.exports = {
   addSchedule,
   editSchedule,
   deleteSchedule,
-  completeSchedule,
+  setScheduleStatus,
   getAllSchedule,
 };

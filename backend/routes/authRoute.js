@@ -8,31 +8,58 @@ router.post("/verifyOtp", verifyOtpValidator, auth.verifyOtp);
 function signInValidator(req, res, next) {
   const { username, password } = req.body;
 
-  if (!username || !password)
-    return res.status(400).json({ error: true, message: "Username and password are required" });
+  try {
+    if (!username) throw "Username is required";
 
-  if (password.length < 8)
-    return res.status(400).json({ error: true, message: "Password should be at least 8 characters long" });
+    if (!password) throw "Password is required";
 
-  next();
+    if (password.toString().length < 8) throw "Password should be at least 8 characters long";
+
+    next();
+  } catch (message) {
+    return res.status(400).json({ error: true, message });
+  }
 }
 
 function signUpValidator(req, res, next) {
   const { username, password, fName, lName, email } = req.body;
+  try {
+    if (!username) throw "Username is required";
 
-  if (!username || !password || !fName || !lName || !email)
-    return res.status(400).json({ error: true, message: "Some fields are missing" });
+    if (!password) throw "Password is required";
 
-  if (password.length < 8)
-    return res.status(400).json({ error: true, message: "Password should be at least 8 characters long" });
+    if (!fName) throw "First Name is required";
 
-  next();
+    if (!lName) throw "Last Name is required";
+
+    if (!email) throw "Email is required";
+
+    if (password.length < 8) throw "Password should be at least 8 characters long";
+
+    if (email.length < 6 || !email.includes("@") || !email.includes(".")) throw "Invalid email";
+
+    next();
+  } catch (message) {
+    return res.status(400).json({ error: true, message });
+  }
 }
 
 function verifyOtpValidator(req, res, next) {
   const { email, otp } = req.body;
-  if (!email || !otp) res.status(400).json({ error: true, message: "Some fields are missing" });
-  next();
+  try {
+    if (!email) throw "Email is required";
+
+    if (!otp) throw "OTP is required";
+
+    if (email.length < 6 || !email.includes("@") || !email.includes(".")) throw "Invalid email";
+
+    if (otp.toString().length < 5) throw "Invalid OTP";
+
+    next();
+  } catch (message) {
+    console.log("Error->", message);
+    return res.status(400).json({ error: true, message });
+  }
 }
 
 router.get("/test", auth.test);

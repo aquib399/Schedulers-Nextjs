@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URL);
 const db = mongoose.connection;
 db.on("open", () => console.log("DB Connected"));
-db.on("error", (err) => console.log(err));
+db.on("error", (err) => console.log("ERROR_-----------------", err));
 
 const { authenticate } = require("./util/authenticate");
 
@@ -28,6 +28,11 @@ app.use("/api/profile", profileRoute);
 app.use("/api/schedule", scheduleRoute);
 
 app.get("/", (req, res) =>
-  res.json({ error: false, message: "Everthing looks fine", origin: process.env.ORIGIN.split(" ") })
+  res.json({
+    error: false,
+    message: "Everthing looks fine",
+    origin: process.env.ORIGIN.split(" "),
+    payload: req.body,
+  })
 );
 app.listen(PORT, console.log(`Listening at http://localhost:${PORT}`));
