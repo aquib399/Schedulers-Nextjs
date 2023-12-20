@@ -3,13 +3,14 @@ const schedule = require("../controller/scheduleController");
 const { Types } = require("mongoose");
 
 router.get("/getAllSchedule", schedule.getAllSchedule);
-router.post("/addSchedule", addScheduleValidator, schedule.addSchedule);
-router.post("/editSchedule", scheduleIdValidator, addScheduleValidator, schedule.editSchedule);
+router.post("/addSchedule", ScheduleValidator, schedule.addSchedule);
+router.post("/editSchedule", scheduleIdValidator, ScheduleValidator, schedule.editSchedule);
 router.post("/deleteSchedule", scheduleIdValidator, schedule.deleteSchedule);
 router.post("/setScheduleStatus", scheduleIdValidator, schedule.setScheduleStatus);
 
-function addScheduleValidator(req, res, next) {
+function ScheduleValidator(req, res, next) {
   const { title, description, time, type } = req.body;
+
   try {
     if (!title) throw "Title is required";
     if (!description) throw "Description is required";
@@ -20,8 +21,10 @@ function addScheduleValidator(req, res, next) {
     return res.status(400).json({ error: true, message });
   }
 }
+
 function scheduleIdValidator(req, res, next) {
   const { id } = req.body;
+  
   try {
     if (!id) throw "Schedule id is required";
     if (id.toString().length != 24) throw "Schedule id has to be 24 in length";

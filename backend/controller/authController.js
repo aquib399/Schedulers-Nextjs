@@ -13,7 +13,7 @@ const signIn = async (req, res) => {
     const success = await checkHash(password, user.password);
     if (!success) return res.status(403).json({ error: true, message: "Wrong password" });
 
-    const token = jwt.sign({ username }, process.env.ACCESS_TOKEN);
+    const token = jwt.sign({ username }, process.env.ACCESS_TOKEN, { expiresIn: "15d" });
     return res
       .cookie("authToken", token)
       .json({ error: false, message: "Login Success", payload: { token } });

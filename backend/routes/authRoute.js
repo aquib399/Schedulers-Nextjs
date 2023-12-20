@@ -10,11 +10,8 @@ function signInValidator(req, res, next) {
 
   try {
     if (!username) throw "Username is required";
-
     if (!password) throw "Password is required";
-
     if (password.toString().length < 8) throw "Password should be at least 8 characters long";
-
     next();
   } catch (message) {
     return res.status(400).json({ error: true, message });
