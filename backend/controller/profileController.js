@@ -1,6 +1,5 @@
 const User = require("../model/user");
-const Schedule = require("../model/schedule");
-
+const { hashPass, checkHash } = require("../util/encrypt");
 const getProfile = async (req, res) => {
   const username = req.username;
 
@@ -23,7 +22,9 @@ const getProfile = async (req, res) => {
 };
 
 const saveSetting = async (req, res) => {
-  if (newPassword.length < 8) return res.status(400).json({ error: true, message: "Password is too short" });
+  const username = req.username;
+  const { newPassword, oldPassword, fName, lName } = req.body;
+  console.log({ username, ...req.body });
   try {
     const user = await User.findOne({ username });
     console.log("The user is :", user);
@@ -33,13 +34,13 @@ const saveSetting = async (req, res) => {
     if (!success) return res.status(403).json({ error: true, message: "Wrong old password" });
 
     const password = await hashPass(newPassword);
-    const filter = { username };
-    const update = { $set: { fName, lName, password } };
-
-    await User.findOneAndUpdate(filter, update);
-    return false;
-  } catch (err) {
-    console.log(err);
+    user.fName = fName;
+    user.lName = lName;
+    user.password = password;
+    await user.save();
+    return res.json({ error: false, message: "Information updated successfully" });
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: true, message: "Internal server error" });
   }
 };

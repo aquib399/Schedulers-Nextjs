@@ -5,8 +5,8 @@ router.get("/getProfile", profile.getProfile);
 router.post("/saveSetting", settingValidator, profile.saveSetting);
 
 function settingValidator(req, res, next) {
-  const { username, oldPassword, fName, lName, password } = req.body;
-  if (!username || !oldPassword || !fName || !lName || !password)
+  const { oldPassword, fName, lName, newPassword } = req.body;
+  if (oldPassword.length < 8 || newPassword.length < 8 || !fName || !lName)
     return res.status(400).json({ error: true, message: "Some fields are missing" });
   next();
 }
