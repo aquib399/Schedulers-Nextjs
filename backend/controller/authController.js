@@ -27,7 +27,6 @@ const signUp = async (req, res) => {
   try {
     const { username, email, password, fName, lName } = req.body;
 
-
     const list = Object.keys(data);
     if (list.includes(email)) {
       return res.status(400).json({ error: true, message: "OTP already sent" });
@@ -48,7 +47,7 @@ const signUp = async (req, res) => {
 
     setTimeout(() => {
       delete data[email];
-    }, 900000);
+    }, 1000 * 60 * 15); // 15 minutes
 
     runTest();
     return res.json({ error: false, message: "Otp sent successfully" });
@@ -100,5 +99,5 @@ function runTest() {
       }
       console.table(data);
       console.log();
-    }, 1500);
+    }, 3000);
 }

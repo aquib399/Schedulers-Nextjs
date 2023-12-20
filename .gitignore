@@ -40,3 +40,7 @@ next-env.d.ts
 # Ignore space files
 **/Spacefile
 **/.space
+
+# rest
+**/*.rest
+**/rest/
