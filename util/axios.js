@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "./api";
+import { toast } from "react-toastify";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -10,12 +11,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log(error);
-    if (error?.status === 401) {
-      // toast.error("Session expired please login again");
-    } else {
-      // toast.error('Please Signin again, something went wrong');
-    }
+    console.error(error?.response?.data?.message);
+    console.error(error);
+    toast.error(error?.response?.data?.message);
+    return error?.response;
   }
 );
 

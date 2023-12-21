@@ -8,18 +8,17 @@ async function signIn(req, res) {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
+
     if (!user) return res.status(404).json({ error: true, message: "No user found" });
 
     const success = await checkHash(password, user.password);
-    if (!success) return res.status(403).json({ error: true, message: "Wrong password" });
+    if (!success) return res.status(400).json({ error: true, message: "Wrong password" });
 
     const token = jwt.sign({ username }, process.env.ACCESS_TOKEN, { expiresIn: "15d" });
-    return res
-      .cookie("authToken", token)
-      .json({ error: false, message: "Login Success", payload: { token } });
+    return res.json({ error: false, message: "Login Success", payload: { token } });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: true, message: "Interval server error" });
+    return res.status(500).json({ error: true, message: "Internal server error" });
   }
 }
 
@@ -63,7 +62,7 @@ async function verifyOtp(req, res) {
 
     if (!data[email]) return res.status(400).json({ error: true, message: "Kindly send OTP first" });
 
-    if (data[email].otp != otp) return res.status(403).json({ error: true, message: "Invalid OTP" });
+    if (data[email].otp != otp) return res.status(400).json({ error: true, message: "Invalid OTP" });
 
     let { username, password, fName, lName } = data[email];
     password = await hashPass(password);

@@ -1,29 +1,13 @@
 import Head from "next/head";
 import ScheduleLayout from "@/components/ScheduleLayout";
 import ScheduleDetailLayout from "@/components/ScheduleDetailLayout";
-import { server, getCookie } from "../../../middleware/auth";
 import { useState, useEffect } from "react";
 
 export default function Completed() {
   const spanStyle = "flex items-center py-1 px-2 border rounded-3xl group-hover:border-[rgb(150,150,150)] transition-[border]";
   const [schedule, setSchedule] = useState([]);
   const [userSchedule, setUserSchedule] = useState([]);
-  const { username, password } = getCookie();
-  useEffect(() => {
-    fetch(server + "/getSchedule", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((res) => res.json())
-      .then(setSchedule)
-      .catch((err) => {
-        console.log(err);
-        alert("Something gone wrong");
-      });
-  }, []);
+  
   return (
     <>
       <Head>

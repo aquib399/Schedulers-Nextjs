@@ -1,20 +1,34 @@
 import "@/styles/globals.css";
 import Layout from "@/components/layout/layout";
-import { verifyCookie } from "../../middleware/auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
+import setSession from "../../util/session";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
-    if (router.pathname == "/signup") return;
-    verifyCookie().then((found) => {
-      if (!found) router.replace("/login");
-    });
+    const token = Cookies.get("authToken");
+    if (token && token.toString().length > 70) setSession(token);
+    else router.push("/login");
   }, []);
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 }

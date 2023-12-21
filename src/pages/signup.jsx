@@ -2,7 +2,6 @@ import OtpPopUp from "@/components/otpPopUp";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useState } from "react";
-import { server } from "../../middleware/auth";
 import { Bitter } from "next/font/google";
 const bitter = Bitter({ subsets: ["latin"], weight: [], display: "auto" });
 export default function Signup() {
@@ -21,43 +20,7 @@ export default function Signup() {
   let flag = true;
   async function submit(e) {
     e.preventDefault();
-    if (!flag) return;
-    flag = false;
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.disabled = false;
-      flag = true;
-    }, 4000);
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const fName = document.getElementById("fName").value;
-    const lName = document.getElementById("lName").value;
-    const email = document.getElementById("email").value;
-    const userData = { username, password, fName, lName, email };
-    const res = await fetch(server + "/signUp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    }).catch((err) => {
-      btn.disabled = false;
-      console.log(err);
-      alert("Server error");
-    });
-    console.log(res?.status);
-    if (res?.status == 200) {
-      setPopUp(email);
-      console.log(popUp);
-    } else if (res?.status == 302) {
-      alert("Username or Email already in use");
-    } else if (res?.status == 500) alert("Error while sending email");
-    else if (res?.status == 409) {
-      alert(`Please wait ${data.time} seconds before sending another OTP`);
-    }
   }
-
   return (
     <>
       <Head>
@@ -88,7 +51,13 @@ export default function Signup() {
             <input className={inputStyle} required placeholder="First Name..." type="text" id="fName" />
             <input className={inputStyle} required placeholder="Last Name... " type="text" id="lName" />
             <input className={inputStyle} required placeholder="Email...     " type="email" id="email" />
-            <input className={inputStyle} required placeholder="Password...  " type="password" id="password" />
+            <input
+              className={inputStyle}
+              required
+              placeholder="Password...  "
+              type="password"
+              id="password"
+            />
             <span
               className="text-right text-xs font-bold text-blue-600 hover:underline hover:cursor-pointer"
               onClick={() => Router.replace("/login")}

@@ -12,8 +12,9 @@ export default function Home() {
       <div className="flex flex-col">
         <h1 className="text-3xl my-3 font-bold">Home</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid numquam reprehenderit eveniet quisquam ad enim consectetur
-          voluptatum! Fuga sequi numquam, molestiae placeat maiores, repellendus fugit porro exercitationem beatae labore eius.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid numquam reprehenderit eveniet
+          quisquam ad enim consectetur voluptatum! Fuga sequi numquam, molestiae placeat maiores, repellendus
+          fugit porro exercitationem beatae labore eius.
         </p>
       </div>
     </>

@@ -1,20 +1,9 @@
 import Head from "next/head";
-import { getCookie, clearCookie, server } from "../../middleware/auth";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function Profile() {
   const router = useRouter();
   const [userData, setUserData] = useState({});
-  const { username, password } = getCookie();
-  useEffect(() => {
-    fetch(server + "/profile/" + username)
-      .then((res) => res.json())
-      .then(setUserData)
-      .catch((err) => {
-        console.log(err);
-        alert("Connection lost to server");
-      });
-  }, []);
   return (
     <>
       <Head>
@@ -30,20 +19,19 @@ export default function Profile() {
         {Object.entries(userData).map(([key, val]) => {
           return (
             <div key={key}>
-              <p>
-                {key} : {val}
-              </p>
+              {key} : {val}
             </div>
           );
         })}
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            clearCookie();
-            router.replace("/login");
           }}
         >
-          <button type="submit" className="border-2 border-black p-1 px-3 w-32 rounded hover:bg-black hover:text-white transition-all">
+          <button
+            type="submit"
+            className="border-2 border-black p-1 px-3 w-32 rounded hover:bg-black hover:text-white transition-all"
+          >
             Logout
           </button>
         </form>

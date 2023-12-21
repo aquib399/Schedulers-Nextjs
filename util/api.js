@@ -1,5 +1,5 @@
-const BASE = "https://backend-1-e4683154.deta.app"; //production
-// const BASE = `http://localhost:8080`; // Developement
+// const BASE = "https://backend-1-e4683154.deta.app"; //production
+const BASE_URL = `http://localhost:8080`; // Developement
 
 // auth
 const SIGN_IN = `/auth/signIn`; // body { username, password}
@@ -18,7 +18,7 @@ const SET_SCHEDULE_STATUS = `/api/setScheduleStatus`; // body { username, passwo
 const DELETE_SCHEDULE = `/api/deleteSchedule`; // body { username, password, _id: schedule id }
 
 module.exports = {
-  BASE,
+  BASE_URL,
   // Auth
   SIGN_IN,
   SIGN_UP,

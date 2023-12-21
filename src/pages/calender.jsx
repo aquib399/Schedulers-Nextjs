@@ -1,7 +1,7 @@
 import Head from "next/head";
 export default function Calender() {
   return (
-    <div>
+    <>
       <Head>
         <title>Calender | SCHEDULERS</title>
         <meta
@@ -11,9 +11,10 @@ export default function Calender() {
       </Head>
       <h1 className="text-3xl my-3 font-bold">Calender</h1>
       <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia iste eveniet optio temporibus, fugit nesciunt ea nemo veniam aperiam
-        facere saepe laborum, dicta rerum praesentium nostrum ut recusandae maxime quis?
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia iste eveniet optio temporibus, fugit
+        nesciunt ea nemo veniam aperiam facere saepe laborum, dicta rerum praesentium nostrum ut recusandae
+        maxime quis?
       </p>
-    </div>
+    </>
   );
 }

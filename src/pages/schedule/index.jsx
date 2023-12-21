@@ -1,7 +1,6 @@
 import Head from "next/head";
 import ScheduleLayout from "@/components/ScheduleLayout";
-import { getCookie, server } from "../../../middleware/auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function Schedule() {
   return (
@@ -77,36 +76,4 @@ export default function Schedule() {
       </div>
     </>
   );
-}
-async function submit() {
-  const [title, description, time, type] = ["title", "description", "time", "option"].map((e) => document.getElementById(e).value);
-  const schedule = { title, description, time, type };
-  console.log(schedule);
-  const { username, password } = getCookie();
-  try {
-    const res = await fetch(server + "/addSchedule", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password, schedule }),
-    }).catch((err) => {
-      console.log(err);
-      alert("Validation or server error");
-    });
-    alert("schedule Added successfully");
-    toast.success("schedule Added successfully", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  } catch (err) {
-    console.error(err);
-    alert("something went wrong from client");
-  }
 }

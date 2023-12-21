@@ -1,52 +1,13 @@
 import Head from "next/head";
-import { getCookie, server, setCookie } from "../../middleware/auth";
-
 export default function Settings() {
   let equal = false;
-  function match() {
-    const oldPassword = document.getElementById("password1");
-    const password = document.getElementById("password2");
-    const matched = document.getElementById("matched");
-    if (oldPassword.value === password.value) {
-      equal = true;
-      matched.style.visibility = "hidden";
-      oldPassword.style.backgroundColor = "#FFFFFF";
-      password.style.backgroundColor = "#FFFFFF";
-      return;
-    } else {
-      equal = false;
-      matched.style.visibility = "visible";
-      oldPassword.style.backgroundColor = "red";
-      password.style.backgroundColor = "red";
-    }
-  }
+  function match() {}
   async function save(e) {
     e.preventDefault();
     if (!equal) {
       alert("Password must be matched");
       return;
     }
-    const { username } = getCookie();
-    const oldPassword = document.getElementById("oldPassword").value;
-    const fName = document.getElementById("fName").value;
-    const lName = document.getElementById("lName").value;
-    const password = document.getElementById("password2").value;
-
-    const res = await fetch(server + "/saveSetting", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, oldPassword, fName, lName, password }),
-    }).catch((err) => {
-      console.error(err);
-      alert("Server error please try again");
-    });
-    console.log(res);
-    if (res?.status == 200) {
-      alert("Settings successfully saved");
-      setCookie(username, password);
-    } else alert("Old password wrong; Try again");
   }
   const inputstyle = `w-60 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all`;
   return (
@@ -76,10 +37,31 @@ export default function Settings() {
               </span>
             </span>
             <div className="flex flex-col gap-4">
-              <input id="oldPassword" type="password" placeholder="Old Password..." className={inputstyle} required onKeyUp={match} />
+              <input
+                id="oldPassword"
+                type="password"
+                placeholder="Old Password..."
+                className={inputstyle}
+                required
+                onKeyUp={match}
+              />
               <div className="flex gap-4">
-                <input id="password1" type="password" placeholder="New Password..." className={inputstyle} required onKeyUp={match} />
-                <input id="password2" type="password" placeholder="Retype Password..." className={inputstyle} required onKeyUp={match} />
+                <input
+                  id="password1"
+                  type="password"
+                  placeholder="New Password..."
+                  className={inputstyle}
+                  required
+                  onKeyUp={match}
+                />
+                <input
+                  id="password2"
+                  type="password"
+                  placeholder="Retype Password..."
+                  className={inputstyle}
+                  required
+                  onKeyUp={match}
+                />
               </div>
             </div>
           </div>

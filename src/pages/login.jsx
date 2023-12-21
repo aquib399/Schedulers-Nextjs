@@ -1,18 +1,32 @@
-import { verifyCookie, setCookie } from "../../middleware/auth";
+import Head from "next/head";
 import { Bitter } from "next/font/google";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import Head from "next/head";
-
+import axiosInstance from "../../util/axios";
+import setSession from "../../util/session";
+import { SIGN_IN } from "../../util/api";
+import { toast } from "react-toastify";
 const bitter = Bitter({ subsets: ["latin"], weight: [], display: "auto" });
 
 export default function Login() {
   const router = useRouter();
-  useEffect(() => {
-    verifyCookie().then((found) => {
-      if (found) router.replace("/");
-    });
-  }, [router.route]);
+  async function userLogin(e) {
+    e.preventDefault();
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    const reqBody = { username, password };
+    console.log(reqBody);
+    try {
+      const { data } = await axiosInstance.post(SIGN_IN, reqBody);
+      if (data?.error) throw data?.message;
+      toast.success(data?.message);
+      setSession(data?.payload?.token, true);
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      if (typeof error == "object") error = "Something went wrong";
+      toast.error(error);
+    }
+  }
   return (
     <>
       <Head>
@@ -41,34 +55,24 @@ export default function Login() {
           >
             WELCOME BACK.
           </span>
-          <form
-            className="flex flex-col gap-3"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const username = document.getElementById("username").value;
-              const password = document.getElementById("password").value;
-              setCookie(username, password);
-              verifyCookie().then((found) => {
-                if (found) router.replace("/");
-                else alert("Wrong username or password");
-              });
-            }}
-          >
+          <form className="flex flex-col gap-3" onSubmit={userLogin}>
             <input
-              id="username"
+              name="username"
               type="text"
               placeholder="Username or email..."
               className="w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all"
               required
             />
             <input
-              id="password"
+              name="password"
               type="password"
               placeholder="Password..."
               className="w-80 py-2 px-4 border outline-none hover:border-b-black focus:border-b-black transition-all"
               required
             />
-            <span className="text-right text-xs font-bold text-blue-600 hover:underline hover:cursor-pointer">Forget Password?</span>
+            <span className="text-right text-xs font-bold text-blue-600 hover:underline hover:cursor-pointer">
+              Forget Password?
+            </span>
             <button
               type="submit"
               className=" py-2 w-80 font-bold tracking-[4px] border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all"
@@ -81,7 +85,7 @@ export default function Login() {
               <hr className="flex-grow border-black" />
             </div>
             <button
-              className=" py-2 w-80 font-bold tracking-[4px] border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all"
+              className="py-2 w-80 font-bold tracking-[4px] border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all"
               onClick={() => {
                 router.push("/signup");
               }}

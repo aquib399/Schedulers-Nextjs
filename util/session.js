@@ -1,13 +1,16 @@
 import axiosInstance from "./axios";
-const setSession = (token) => {
+import Cookies from "js-cookie";
+
+export default function setSession(token, isFromLogin) {
   if (typeof token === "string" && token.length > 70) {
-    localStorage.setItem("authToken", token);
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    console.log("Token set successfully");
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    if (isFromLogin) {
+      Cookies.set("authToken", token, { expires: 15 });
+      console.log("Token set successfully");
+    }
   } else {
-    localStorage.removeItem("authToken");
+    Cookies.remove("authToken");
     delete axiosInstance.defaults.headers.common.Authorization;
     console.error("Invalid token");
   }
-};
-module.exports = { setSession };
+}

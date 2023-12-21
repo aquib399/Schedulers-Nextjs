@@ -12,8 +12,8 @@ db.on("open", () => console.log("MongoDB Connected"));
 db.on("error", (err) => console.log("ERROR-----------------------", err));
 
 // Config
-// app.use(express.json(), cors({ origin: process.env.ORIGIN.split(",") }));
-app.use(express.json(), cors({ origin: ["*"] }));
+app.use(express.json(), cors({ origin: process.env.ORIGIN.split(" ") }));
+// app.use(express.json(), cors({ origin: ["*"] }));
 const { authenticate } = require("./util/authenticate");
 app.use("/api", authenticate);
 
