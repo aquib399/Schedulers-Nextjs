@@ -1,8 +1,26 @@
 import Head from "next/head";
 import ScheduleLayout from "@/components/ScheduleLayout";
 import { toast } from "react-toastify";
+import { ADD_SCHEDULE } from "../../../util/api";
+import axiosInstance from "../../../util/axios";
 
 export default function Schedule() {
+  async function submit(e) {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+    const time = e.target.time.value;
+    const type = e.target.type.value;
+    const reqBody = { title, description, time, type };
+    try {
+      const { data } = await axiosInstance.post(ADD_SCHEDULE, reqBody);
+      if (data?.error) throw { message: data?.message };
+      toast.success(data?.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.message || "Something went wrong");
+    }
+  }
   return (
     <>
       <Head>
@@ -15,24 +33,18 @@ export default function Schedule() {
       <ScheduleLayout />
       <div className="center-full">
         <h1 className="text-4xl font-bold">Add a Schedule</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submit();
-          }}
-          className="flex flex-col w-full p-4 gap-y-4"
-        >
+        <form onSubmit={submit} className="flex flex-col w-full p-4 gap-y-4">
           <input
             type={"text"}
             placeholder={"Title *"}
-            id="title"
+            name="title"
             className="rounded-lg border-b border-zinc-800 p-4 text-3xl font-bold italic outline-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
             required
           />
           <textarea
             type={"text"}
             placeholder={"Description *"}
-            id="description"
+            name="description"
             className="rounded-lg border-b border-zinc-800 p-3 text-xl h-28 tracking-wide outline-none resize-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
             required
           />
@@ -40,7 +52,7 @@ export default function Schedule() {
             <label htmlFor="time">Date & Time :</label>
             <input
               type={"datetime-local"}
-              id="time"
+              name="time"
               className="rounded-lg border-b border-zinc-800 m-2 p-1 text-center outline-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
               required
             />
@@ -48,7 +60,7 @@ export default function Schedule() {
           <div className="mx-2">
             <label htmlFor="option">Select Type :</label>
             <select
-              id="option"
+              name="type"
               className="rounded-lg border-b border-zinc-800 m-2 p-2 w-40  outline-none hover:shadow-[0_1px_2px] focus:shadow-[0_1px_2px] transition-all"
               defaultValue="default"
               required

@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import Head from "next/head";
 
 export default function Info() {
@@ -12,9 +13,10 @@ export default function Info() {
       </Head>
       <h1 className="text-3xl my-3 font-bold">Info</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla exercitationem iusto, tenetur perferendis temporibus obcaecati eos
-        in commodi itaque reprehenderit ipsa dolorum minus incidunt repudiandae. Culpa, sed. Accusamus, neque doloribus.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla exercitationem iusto, tenetur perferendis temporibus obcaecati eos in commodi itaque
+        reprehenderit ipsa dolorum minus incidunt repudiandae. Culpa, sed. Accusamus, neque doloribus.
       </p>
+      <Button className={"bg-blue-500 h-12 w-20"}>Hello</Button>
     </div>
   );
 }

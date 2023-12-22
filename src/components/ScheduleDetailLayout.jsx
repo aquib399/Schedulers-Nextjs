@@ -1,6 +1,30 @@
-export default function ScheduleDetailLayout({ _id, title, description, time, type, complete }) {
-  async function completeSchedule(e) {}
-  async function deleteSchedule(e) {}
+import { toast } from "react-toastify";
+import axiosInstance from "../../util/axios";
+import { DELETE_SCHEDULE, SET_SCHEDULE_STATUS } from "../../util/api";
+
+export default function ScheduleDetailLayout({ id, title, description, time, type, complete, refresh }) {
+  async function setScheduleStatus() {
+    try {
+      const { data } = await axiosInstance.post(SET_SCHEDULE_STATUS, { id });
+      if (data?.error) throw { message: data?.message };
+      refresh();
+      toast.success(data?.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.message || "Something went wrong");
+    }
+  }
+  async function deleteSchedule() {
+    try {
+      const { data } = await axiosInstance.post(DELETE_SCHEDULE, { id });
+      if (data?.error) throw { message: data?.message };
+      refresh();
+      toast.success(data?.message);
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.message || "Something went wrong");
+    }
+  }
 
   const btnStyle = `py-2 w-40 text-xs font-bold border border-black hover:bg-black hover:text-white
   hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
@@ -8,7 +32,7 @@ export default function ScheduleDetailLayout({ _id, title, description, time, ty
   return (
     <div className="flex flex-col h-screen min-w-[40%] gap-2 p-3 overflow-scroll">
       <h1 className="text-center text-3xl font-bold">Schedule Detail</h1>
-      {!_id ? (
+      {!id ? (
         <div className="text-xl italic animate-bounce text-center mt-8 ">Type a Schedule to view details</div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -16,10 +40,10 @@ export default function ScheduleDetailLayout({ _id, title, description, time, ty
           <p className="text-justify break-words">{description}</p>
           <p>{time}</p>
           <p>{type}</p>
-          <button id="complete" onClick={completeSchedule} className={btnStyle}>
+          <button onClick={setScheduleStatus} className={btnStyle}>
             {complete ? "COMPLETED" : "NOT COMPLETED"}
           </button>
-          <button id="delete" onClick={deleteSchedule} className={btnStyle}>
+          <button onClick={deleteSchedule} className={btnStyle}>
             DELETE
           </button>
         </div>

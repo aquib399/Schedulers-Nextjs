@@ -14,19 +14,18 @@ export default function Login() {
     const username = e.target.username.value;
     const password = e.target.password.value;
     const reqBody = { username, password };
-    console.log(reqBody);
     try {
       const { data } = await axiosInstance.post(SIGN_IN, reqBody);
-      if (data?.error) throw data?.message;
+      if (data?.error) throw { message: data?.message };
       toast.success(data?.message);
       setSession(data?.payload?.token, true);
       router.push("/");
     } catch (error) {
       console.error(error);
-      if (typeof error == "object") error = "Something went wrong";
-      toast.error(error);
+      toast.error(error?.message || "Something went wrong");
     }
   }
+
   return (
     <>
       <Head>
@@ -35,10 +34,7 @@ export default function Login() {
       </Head>
       <div className="flex h-screen w-screen justify-center fixed bg-white">
         <div
-          className={
-            "flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[55%] font-bold text-7xl max-lg:hidden " +
-            bitter.className
-          }
+          className={`flex flex-col items-center justify-center bg-gradient-to-tr from-black to-zinc-800 min-w-[55%] font-bold md:text-6xl lg:text-7xl max-md:hidden duration-1000 ${bitter.className}`}
         >
           <div className="flex flex-col">
             <span className="text-blue-300">WORK GOES</span>
@@ -85,6 +81,7 @@ export default function Login() {
               <hr className="flex-grow border-black" />
             </div>
             <button
+              type="button"
               className="py-2 w-80 font-bold tracking-[4px] border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all"
               onClick={() => {
                 router.push("/signup");
