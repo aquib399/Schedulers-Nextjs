@@ -1,14 +1,17 @@
 import { toast } from "react-toastify";
 import axiosInstance from "../../util/axios";
 import { DELETE_SCHEDULE, SET_SCHEDULE_STATUS } from "../../util/api";
+import { useState } from "react";
 
-export default function ScheduleDetailLayout({ id, title, description, time, type, complete, refresh }) {
+export default function ScheduleDetailLayout({ id, title, description, time, type, completed, refresh }) {
+  const [isCompleted, setIsCompleted] = useState(completed);
   async function setScheduleStatus() {
     try {
       const { data } = await axiosInstance.post(SET_SCHEDULE_STATUS, { id });
       if (data?.error) throw { message: data?.message };
       refresh();
       toast.success(data?.message);
+      setIsCompleted(!isCompleted);
     } catch (error) {
       console.error(error);
       toast.error(error?.message || "Something went wrong");
@@ -26,8 +29,7 @@ export default function ScheduleDetailLayout({ id, title, description, time, typ
     }
   }
 
-  const btnStyle = `py-2 w-40 text-xs font-bold border border-black hover:bg-black hover:text-white
-  hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
+  const btnStyle = `py-2 w-40 text-xs font-bold border border-black hover:bg-black hover:text-white hover:scale-105 active:text-white active:scale-100 active:bg-[rgb(70,70,70)] transition-all`;
 
   return (
     <div className="flex flex-col h-screen min-w-[40%] gap-2 p-3 overflow-scroll">
@@ -41,7 +43,7 @@ export default function ScheduleDetailLayout({ id, title, description, time, typ
           <p>{time}</p>
           <p>{type}</p>
           <button onClick={setScheduleStatus} className={btnStyle}>
-            {complete ? "COMPLETED" : "NOT COMPLETED"}
+            {isCompleted ? "COMPLETED" : "NOT COMPLETED"}
           </button>
           <button onClick={deleteSchedule} className={btnStyle}>
             DELETE
