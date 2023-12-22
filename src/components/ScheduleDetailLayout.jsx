@@ -17,7 +17,7 @@ export default function ScheduleDetailLayout({ userSchedule, refresh }) {
   }
   async function deleteSchedule() {
     try {
-      const { data } = await axiosInstance.post(DELETE_SCHEDULE, { id });
+      const { data } = await axiosInstance.post(DELETE_SCHEDULE, { id: userSchedule._id });
       if (data?.error) throw { message: data?.message };
       refresh();
       toast.success(data?.message);
