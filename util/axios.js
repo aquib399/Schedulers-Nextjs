@@ -17,7 +17,7 @@ axiosInstance.interceptors.response.use(
       const pathname = window.location.pathname;
       if (pathname != "/signin" && pathname != "/signup") {
         let message = "Session expired, Please login again";
-        if (!Cookies.get("authToken")) message = "Login first";
+        if (!Cookies.get("authToken")) message = "Kindly login first";
         toast.error(message);
         setTimeout(() => {
           window.location.replace("/signin");

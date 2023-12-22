@@ -65,17 +65,7 @@ export default function All() {
               );
             })}
         </div>
-        {schedule && (
-          <ScheduleDetailLayout
-            id={userSchedule._id}
-            title={userSchedule.title}
-            description={userSchedule.description}
-            time={userSchedule.time}
-            type={userSchedule.type}
-            completed={userSchedule.completed}
-            refresh={getAllSchedule}
-          />
-        )}
+        {schedule && <ScheduleDetailLayout userSchedule={userSchedule} refresh={getAllSchedule} />}
       </div>
     </>
   );

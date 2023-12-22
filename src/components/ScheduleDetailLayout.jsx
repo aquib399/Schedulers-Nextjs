@@ -1,17 +1,15 @@
 import { toast } from "react-toastify";
 import axiosInstance from "../../util/axios";
 import { DELETE_SCHEDULE, SET_SCHEDULE_STATUS } from "../../util/api";
-import { useState } from "react";
 
-export default function ScheduleDetailLayout({ id, title, description, time, type, completed, refresh }) {
-  const [isCompleted, setIsCompleted] = useState(completed);
+export default function ScheduleDetailLayout({ userSchedule, refresh }) {
   async function setScheduleStatus() {
     try {
-      const { data } = await axiosInstance.post(SET_SCHEDULE_STATUS, { id });
+      const { data } = await axiosInstance.post(SET_SCHEDULE_STATUS, { id: userSchedule._id });
       if (data?.error) throw { message: data?.message };
       refresh();
       toast.success(data?.message);
-      setIsCompleted(!isCompleted);
+      userSchedule.completed = !userSchedule.completed;
     } catch (error) {
       console.error(error);
       toast.error(error?.message || "Something went wrong");
@@ -34,16 +32,16 @@ export default function ScheduleDetailLayout({ id, title, description, time, typ
   return (
     <div className="flex flex-col h-screen min-w-[40%] gap-2 p-3 overflow-scroll">
       <h1 className="text-center text-3xl font-bold">Schedule Detail</h1>
-      {!id ? (
-        <div className="text-xl italic animate-bounce text-center mt-8 ">Type a Schedule to view details</div>
+      {!userSchedule._id ? (
+        <div className="text-xl italic animate-bounce text-center mt-8">Type a Schedule to view details</div>
       ) : (
         <div className="flex flex-col gap-2">
-          <p className="mt-4 text-xl font-bold break-words">{title}</p>
-          <p className="text-justify break-words">{description}</p>
-          <p>{time}</p>
-          <p>{type}</p>
+          <p className="mt-4 text-xl font-bold break-words">{userSchedule.title}</p>
+          <p className="text-justify break-words">{userSchedule.description}</p>
+          <p>{userSchedule.time}</p>
+          <p>{userSchedule.type}</p>
           <button onClick={setScheduleStatus} className={btnStyle}>
-            {isCompleted ? "COMPLETED" : "NOT COMPLETED"}
+            {`Mark as ${userSchedule.completed ? "not completed" : "completed"}`}
           </button>
           <button onClick={deleteSchedule} className={btnStyle}>
             DELETE
