@@ -3,9 +3,16 @@ import Layout from "@/components/layout/layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import setSession from "../../util/session";
+import axiosInstance from "../../util/axios";
+import { VALIDATE } from "../../util/api";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
-  setSession();
+  useEffect(() => {
+    setSession();
+    axiosInstance.post(VALIDATE).catch(console.error);
+  }, []);
+
   return (
     <>
       <ToastContainer
