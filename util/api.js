@@ -1,4 +1,4 @@
-const BASE_URL = "https://desert-sand-termite-shoe.cyclic.app"; //production
+const BASE_URL = "https://schedulers.cyclic.app/"; //production
 // const BASE_URL = `http://localhost:8080`; // Developement
 
 // auth
